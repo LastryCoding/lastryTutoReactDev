@@ -8,7 +8,7 @@ preuve de fonctionnement.
 
 ## Etat courant
 
-- Phase active : RQ-02 Spike vertical.
+- Phase active : RQ-03 Domaine et stockage local.
 - Depot GitHub : `https://github.com/LastryCoding/lastryTutoReactDev`.
 - Visibilite GitHub : publique, verifiee via l'API GitHub.
 - Depot local : vide au demarrage, sans commit, branche initiale `master`.
@@ -86,7 +86,28 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - avertissement de bundle TutorialKit superieur a 500 ko observe et conserve
   comme axe de mesure, sans chargement du WebContainer sur un futur dashboard.
 
+### 2026-09-02 - RQ-02 Spike vertical
+
+- API `tutorialkit:store` utilisee pour les documents, snapshots, reset et solution ;
+- API `tutorialkit:core` utilisee pour TypeScript, ESLint et Vitest ;
+- code modifie sauvegarde avec debounce dans `reactquest:state:v1` ;
+- seuls les fichiers differents du starter sont stockes ;
+- code restaure apres rechargement avant la reprise des modifications ;
+- formatage realise par `prettier/standalone`, charge paresseusement ;
+- readiness basee sur la preview TutorialKit, donc apres `npm ci` et Vite ;
+- validation structuree en trois conditions avec details techniques ;
+- solution et reset natifs TutorialKit interceptes pour la tracabilite locale ;
+- XP idempotent et badge `premier-pas` testes ;
+- changement de version de contenu avec archivage de l'ancien code teste ;
+- etat JSON corrompu isole sans plantage et migration v0 testee ;
+- `pnpm test` : 5 tests passes dans 2 fichiers ;
+- `pnpm validate:exercises` : starter en echec et solution valide ;
+- `pnpm test:e2e` sur Microsoft Edge : 1 test passe en 1,9 minute ;
+- E2E verifie COOP/COEP local via `crossOriginIsolated === true` ;
+- E2E verifie edition, preview, echec du starter, autosauvegarde, rechargement,
+  restauration, formatage, execution, validation et attribution de 50 XP.
+
 ## Prochaine porte
 
-Realiser le spike RQ-02 : persistance du code, formatage, diagnostics, lint,
-execution, preview, verification, XP et restauration apres rechargement.
+Completer RQ-03 avec import/export, reinitialisation totale, gestion utilisateur
+de l'etat corrompu et couverture des preferences.

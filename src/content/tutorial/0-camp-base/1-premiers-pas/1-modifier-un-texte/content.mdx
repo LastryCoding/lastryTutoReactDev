@@ -17,6 +17,8 @@ custom:
   contentVersion: 1
 ---
 
+import ExerciseActions from '@/components/ExerciseActions';
+
 # Votre premiere mission
 
 Le composant affiche deja une carte de bienvenue. Modifiez son texte pour faire
@@ -42,3 +44,15 @@ Le texte visible entre `<h1>` et `</h1>` est du contenu JSX.
 
 Une carte sombre portant le titre « Bienvenue dans React Quest ! » et un court
 message de confirmation.
+
+<ExerciseActions
+  client:load
+  exerciseId="camp-01"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'En JSX, le texte visible peut etre ecrit directement entre une balise ouvrante et sa balise fermante.',
+    'La seule ligne a modifier est celle qui contient la balise h1 dans src/App.tsx.',
+    'Le resultat doit prendre la forme : <h1>Bienvenue dans React Quest !</h1>.',
+  ]}
+/>

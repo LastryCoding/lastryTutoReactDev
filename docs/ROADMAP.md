@@ -9,7 +9,7 @@ ne passe a `Termine` qu'apres code, verification, documentation et commit.
 | ----- | --------------------------------- | ---------------- | ------------------------------------------------------------------------ |
 | RQ-00 | Documentation et source de verite | Termine          | README, vision, bible, architecture, roadmap et suivi committes          |
 | RQ-01 | Initialisation technique          | Termine          | App TutorialKit demarre, scripts qualite disponibles, build vert         |
-| RQ-02 | Spike vertical                    | A faire          | Premier exercice complet restaure apres rechargement                     |
+| RQ-02 | Spike vertical                    | Termine          | Premier exercice complet restaure apres rechargement                     |
 | RQ-03 | Domaine et stockage local         | A faire          | Store, migrations, import/export et corruption testes                    |
 | RQ-04 | Dashboard et progression          | A faire          | Carte, XP, badges, acquis, sprint et deblocage fonctionnels              |
 | RQ-05 | IDE React Quest                   | A faire          | Actions, panneaux, diagnostics, raccourcis et compatibilite fonctionnels |
@@ -47,3 +47,4 @@ metadonnees, le contenu, les tests et le suivi dans le meme commit fonctionnel.
 
 - 2026-09-01 : RQ-00 termine, six documents fondateurs crees et relus.
 - 2026-09-02 : RQ-01 termine, socle TutorialKit compile et servi localement.
+- 2026-09-02 : RQ-02 termine, tranche verticale validee de bout en bout sur Edge.

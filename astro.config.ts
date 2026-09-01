@@ -11,4 +11,18 @@ export default defineConfig({
     }),
   ],
   site: 'https://reactquest.lastry.fr',
+  vite: {
+    preview: {
+      headers: {
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Opener-Policy': 'same-origin',
+      },
+    },
+    server: {
+      headers: {
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Opener-Policy': 'same-origin',
+      },
+    },
+  },
 });

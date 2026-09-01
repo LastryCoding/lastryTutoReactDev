@@ -84,11 +84,19 @@ statique. Les noms reels du reseau et des snippets Caddy sont adaptes sur le VPS
 - les dependances TutorialKit doivent rester strictement epinglees car cette API
   peut casser lors d'une mise a jour mineure.
 
+## Resultats du spike vertical
+
+- `lessonFullyLoaded` prouve le montage des fichiers mais pas la fin de `npm ci` ;
+- la preview `ready` est l'autorite pour activer les commandes de l'atelier ;
+- `takeSnapshot` permet de comparer le projet courant au starter et de ne stocker
+  que les fichiers modifies ;
+- `prettier/standalone` est plus deterministe que `npx` dans le shell WebContainer ;
+- TypeScript, ESLint et Vitest sont lances par `webcontainer.spawn` et leurs codes
+  de sortie alimentent un resultat structure ;
+- le starter et la solution sont verifies hors navigateur avec le meme template.
+
 ## Risques techniques a lever par le spike
 
 - surface exacte de remplacement des composants TutorialKit 1.6.0 ;
-- orchestration publique des commandes Prettier, ESLint et Vitest ;
-- restauration de fichiers modifies avant demarrage du runtime ;
-- collecte structuree des diagnostics et resultats de tests ;
 - comportement Playwright de WebContainers sous headers d'isolation ;
 - limites de stockage et temps d'installation du template partage.

@@ -7,6 +7,9 @@ prepareCommands:
   - ['npm ci', 'Installation de l atelier']
 previews:
   - [5173, 'Resultat']
+filesystem:
+  watch:
+    - /src/**/*
 terminal:
   open: false
   panels:

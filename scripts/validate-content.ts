@@ -2,7 +2,9 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const tutorialRoot = join(process.cwd(), 'src', 'content', 'tutorial');
-const contentFiles = findFiles(tutorialRoot, 'content.md');
+const contentFiles = findAllFiles(tutorialRoot).filter((file) =>
+  /content\.mdx?$/.test(file),
+);
 const errors: string[] = [];
 
 if (contentFiles.length === 0) {
@@ -36,10 +38,6 @@ if (errors.length > 0) {
 }
 
 console.log(`${contentFiles.length} lecon(s) structurellement valide(s).`);
-
-function findFiles(directory: string, filename: string): string[] {
-  return findAllFiles(directory).filter((file) => file.endsWith(filename));
-}
 
 function findAllFiles(directory: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {

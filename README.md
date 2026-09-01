@@ -110,8 +110,8 @@ React Quest ne synchronise pas la progression entre appareils.
 Chaque exercice possede des metadonnees validees, une introduction, un starter,
 trois indices maximum, une solution et des validations automatiques. Le starter
 doit echouer a au moins une validation et la solution doit toutes les reussir.
-Le format exact sera documente dans `docs/EXERCISES.md` apres validation du
-spike TutorialKit.
+Le contrat complet est documente dans
+[`docs/EXERCISES.md`](docs/EXERCISES.md).
 
 ## Navigateurs
 
