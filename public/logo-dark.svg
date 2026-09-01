@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-labelledby="title">
+  <title id="title">React Quest</title>
+  <g fill="none" stroke="#8ee3c8" stroke-width="3">
+    <path d="M30 5 52 18v27L30 58 8 45V18Z" fill="#102a46" />
+    <path d="m30 16 8 14-8 18-8-18Z" fill="#8ee3c8" />
+    <circle cx="30" cy="30" r="4" fill="#102a46" />
+  </g>
+  <text x="68" y="41" fill="#eef6ff" font-family="ui-sans-serif,system-ui,sans-serif" font-size="30" font-weight="800" letter-spacing="-1.2">React Quest</text>
+</svg>

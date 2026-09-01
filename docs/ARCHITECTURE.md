@@ -75,6 +75,15 @@ rejoint un reseau Docker externe fourni par le deploiement et n'expose aucun por
 sur l'hote. Caddy termine TLS, ajoute COOP/COEP et reverse-proxy le serveur
 statique. Les noms reels du reseau et des snippets Caddy sont adaptes sur le VPS.
 
+## Resultats de l'initialisation
+
+- le format officiel `_files` et `_solution` est compile par TutorialKit ;
+- le template React partage est fusionne dans les fichiers de la lecon ;
+- les commandes de preparation, serveur et terminaux sont configurables ;
+- l'API experimentale fournit snapshot, update, reset, solve et WebContainer ;
+- les dependances TutorialKit doivent rester strictement epinglees car cette API
+  peut casser lors d'une mise a jour mineure.
+
 ## Risques techniques a lever par le spike
 
 - surface exacte de remplacement des composants TutorialKit 1.6.0 ;
