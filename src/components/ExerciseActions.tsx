@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { webcontainer } from 'tutorialkit:core';
 import tutorialStore from 'tutorialkit:store';
 import {
@@ -18,7 +19,6 @@ import {
   loadQuestState,
   saveQuestState,
 } from '@/storage/progress-store';
-import './ExerciseActions.css';
 import ProgressSettings from './ProgressSettings';
 
 interface ExerciseActionsProps {
@@ -39,7 +39,10 @@ type Activity =
   | { status: 'success'; message: string }
   | { status: 'failure'; message: string };
 
+type Operation = 'format' | 'run' | 'verify';
+
 const SAVE_DELAY_MS = 450;
+const PROCESS_TIMEOUT_MS = 120_000;
 
 export default function ExerciseActions({
   exerciseId,
@@ -56,68 +59,141 @@ export default function ExerciseActions({
   const [runtimeReady, setRuntimeReady] = useState(false);
   const [corruptedState, setCorruptedState] = useState(false);
   const [questState, setQuestState] = useState<QuestState | null>(null);
+  const [compatible, setCompatible] = useState<boolean | null>(null);
+  const [operation, setOperation] = useState<Operation | null>(null);
+  const [operationError, setOperationError] = useState<string | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const baselineFiles = useRef<Record<string, string>>({});
+  const operationRunning = useRef(false);
+  const operationToken = useRef(0);
+  const processKillers = useRef(new Set<() => void>());
+  const workspaceRevision = useRef(0);
+
+  function beginOperation(nextOperation: Operation): number {
+    operationRunning.current = true;
+    const token = ++operationToken.current;
+    setOperation(nextOperation);
+    setOperationError(null);
+    return token;
+  }
+
+  function isCurrentOperation(token: number): boolean {
+    return operationToken.current === token;
+  }
+
+  function finishOperation(token: number): void {
+    if (!isCurrentOperation(token)) {
+      return;
+    }
+
+    operationRunning.current = false;
+    setOperation(null);
+  }
+
+  function runWorkspaceProcess(
+    command: string,
+    args: string[],
+    token: number,
+  ): Promise<ProcessResult> {
+    return runProcess(command, args, processKillers.current, () =>
+      isCurrentOperation(token),
+    );
+  }
+
+  function syncQuestState(next: QuestState): void {
+    setProgress(next.exerciseProgress[exerciseId] ?? null);
+    setTotalXp(next.xp);
+    setQuestState(next);
+  }
 
   function persist(transform: (state: QuestState) => QuestState): QuestState {
     const loaded = loadQuestState(localStorage);
     const next = transform(loaded.state);
     saveQuestState(localStorage, next);
-    setProgress(next.exerciseProgress[exerciseId] ?? null);
-    setTotalXp(next.xp);
-    setQuestState(next);
+    syncQuestState(next);
     return next;
   }
 
-  function saveCurrentFiles() {
+  function saveCurrentFiles(announce = true) {
     const snapshot = tutorialStore.takeSnapshot().files;
     const modifiedFiles = selectModifiedFiles(snapshot, baselineFiles.current);
     persist((state) => saveExerciseFiles(state, exerciseId, modifiedFiles));
-    setActivity({ status: 'success', message: 'Code sauvegarde localement.' });
+    if (announce) {
+      setActivity({
+        status: 'success',
+        message: 'Code sauvegarde localement.',
+      });
+    }
   }
 
   async function runExercise() {
-    if (!runtimeReady) {
+    if (!runtimeReady || operationRunning.current) {
       setActivity({
         status: 'failure',
-        message: "L'atelier termine encore sa preparation.",
+        message: runtimeReady
+          ? 'Une autre action est deja en cours.'
+          : "L'atelier termine encore sa preparation.",
       });
       return;
     }
 
+    const token = beginOperation('run');
     setActivity({ status: 'running', message: 'Compilation TypeScript...' });
-    const result = await runProcess('npm', [
-      'run',
-      'typecheck',
-      '--',
-      '--pretty',
-      'false',
-    ]);
+    try {
+      const result = await runWorkspaceProcess(
+        'npm',
+        ['run', 'typecheck', '--', '--pretty', 'false'],
+        token,
+      );
 
-    setActivity(
-      result.exitCode === 0
-        ? {
-            status: 'success',
-            message: 'Compilation reussie. La previsualisation est a jour.',
-          }
-        : {
-            status: 'failure',
-            message:
-              'TypeScript a detecte une erreur. Lancez Verifier pour obtenir les conditions et les details techniques.',
-          },
-    );
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
+      setActivity(
+        result.exitCode === 0
+          ? {
+              status: 'success',
+              message: 'Compilation reussie. Verifiez maintenant la mission.',
+            }
+          : {
+              status: 'failure',
+              message:
+                'TypeScript a detecte une erreur. Lancez la validation pour afficher les conditions detaillees.',
+            },
+      );
+    } catch (error) {
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
+      const message = processErrorMessage('La compilation a echoue', error);
+      setOperationError(message);
+      setDetailsOpen(true);
+      setActivity({
+        status: 'failure',
+        message,
+      });
+    } finally {
+      finishOperation(token);
+    }
   }
 
   async function formatCurrentFile() {
     const document = tutorialStore.currentDocument.get();
 
-    if (!runtimeReady || !document) {
+    if (!runtimeReady || !document || operationRunning.current) {
       setActivity({
         status: 'failure',
-        message: "Aucun fichier pret a etre formate pour l'instant.",
+        message: operationRunning.current
+          ? 'Une autre action est deja en cours.'
+          : "Aucun fichier pret a etre formate pour l'instant.",
       });
       return;
     }
 
+    const token = beginOperation('format');
     setActivity({ status: 'running', message: 'Formatage avec Prettier...' });
     try {
       const [prettier, typescriptPlugin, estreePlugin] = await Promise.all([
@@ -135,6 +211,11 @@ export default function ExerciseActions({
         singleQuote: true,
         trailingComma: 'all',
       });
+
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
       tutorialStore.updateFile(document.filePath, formatted);
       saveCurrentFiles();
       setActivity({
@@ -142,88 +223,141 @@ export default function ExerciseActions({
         message: `${document.filePath} a ete formate avec Prettier.`,
       });
     } catch (error) {
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
+      const message = `Prettier n'a pas pu formater le fichier actif. ${error instanceof Error ? error.message : 'Erreur inconnue.'}`;
+      setOperationError(message);
+      setDetailsOpen(true);
       setActivity({
         status: 'failure',
-        message: `Prettier n'a pas pu formater le fichier actif. ${error instanceof Error ? error.message : 'Erreur inconnue.'}`,
+        message,
       });
+    } finally {
+      finishOperation(token);
     }
   }
 
   async function verifyExercise() {
-    if (!runtimeReady) {
+    if (!runtimeReady || operationRunning.current) {
       setActivity({
         status: 'failure',
-        message: "L'atelier termine encore sa preparation.",
+        message: runtimeReady
+          ? 'Une validation est deja en cours.'
+          : "L'atelier termine encore sa preparation.",
       });
       return;
     }
 
-    saveCurrentFiles();
+    const token = beginOperation('verify');
+    setDetailsOpen(false);
     setActivity({
       status: 'running',
       message: 'Verification TypeScript, ESLint et tests fonctionnels...',
     });
 
-    const typecheck = await runProcess('npm', [
-      'run',
-      'typecheck',
-      '--',
-      '--pretty',
-      'false',
-    ]);
-    const lint = await runProcess('npm', ['run', 'lint']);
-    const tests = await runProcess('npm', [
-      'run',
-      'test',
-      '--',
-      '--reporter=basic',
-    ]);
-    const success =
-      typecheck.exitCode === 0 && lint.exitCode === 0 && tests.exitCode === 0;
-    const now = new Date().toISOString();
-    const result: ValidationResult = {
-      status: success ? 'success' : 'failure',
-      conditions: [
-        createCondition(
-          'typescript',
-          'TypeScript',
-          typecheck,
-          'Le code est correctement type et compile.',
-          'TypeScript signale encore une erreur de syntaxe ou de type.',
-        ),
-        createCondition(
-          'eslint',
-          'ESLint',
-          lint,
-          'Les regles ESLint sont respectees.',
-          'ESLint a trouve un probleme dans le code.',
-        ),
-        createCondition(
-          'functional-test',
-          'Resultat attendu',
-          tests,
-          'Le comportement attendu est confirme par les tests.',
-          "Le comportement attendu n'est pas encore obtenu. Relisez l'objectif et reproduisez l'interaction demandee.",
-        ),
-      ],
-      pedagogicalMessage: success
-        ? `Mission reussie : ${xp} XP attribues.`
-        : 'Une partie est deja correcte. Utilisez les conditions ci-dessous pour identifier la prochaine modification.',
-      technicalDetails: formatTechnicalDetails({ typecheck, lint, tests }),
-      validatedAt: now,
-    };
+    try {
+      const validationSnapshot = tutorialStore.takeSnapshot().files;
+      const validationRevision = workspaceRevision.current;
+      const modifiedFiles = selectModifiedFiles(
+        validationSnapshot,
+        baselineFiles.current,
+      );
+      persist((state) => saveExerciseFiles(state, exerciseId, modifiedFiles));
 
-    let next = persist((state) => recordValidation(state, exerciseId, result));
+      const typecheck = await runWorkspaceProcess(
+        'npm',
+        ['run', 'typecheck', '--', '--pretty', 'false'],
+        token,
+      );
+      const lint = await runWorkspaceProcess('npm', ['run', 'lint'], token);
+      const tests = await runWorkspaceProcess(
+        'npm',
+        ['run', 'test', '--', '--reporter=basic'],
+        token,
+      );
 
-    if (success) {
-      next = persist((state) => completeExercise(state, exerciseId, xp, now));
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
+      const currentSnapshot = tutorialStore.takeSnapshot().files;
+      if (
+        workspaceRevision.current !== validationRevision ||
+        !filesAreEqual(validationSnapshot, currentSnapshot)
+      ) {
+        throw new Error(
+          'Le code a ete modifie pendant la validation. Relancez-la pour controler la version actuelle.',
+        );
+      }
+
+      const success =
+        typecheck.exitCode === 0 && lint.exitCode === 0 && tests.exitCode === 0;
+      const now = new Date().toISOString();
+      const current = loadQuestState(localStorage).state;
+      const alreadyCompleted = current.completedExercises.includes(exerciseId);
+      const pedagogicalMessage = success
+        ? alreadyCompleted
+          ? 'Mission toujours validee. Les XP avaient deja ete attribues.'
+          : `Mission reussie : +${xp} XP.`
+        : 'Mission a corriger. Consultez les controles pour identifier la prochaine modification.';
+      const result: ValidationResult = {
+        status: success ? 'success' : 'failure',
+        conditions: [
+          createCondition(
+            'typescript',
+            'TypeScript',
+            typecheck,
+            'Le code est correctement type et compile.',
+            'TypeScript signale encore une erreur de syntaxe ou de type.',
+          ),
+          createCondition(
+            'eslint',
+            'ESLint',
+            lint,
+            'Les regles ESLint sont respectees.',
+            'ESLint a trouve un probleme dans le code.',
+          ),
+          createCondition(
+            'functional-test',
+            'Resultat attendu',
+            tests,
+            'Le comportement attendu est confirme par les tests.',
+            "Le comportement attendu n'est pas encore obtenu. Relisez l'objectif et reproduisez l'interaction demandee.",
+          ),
+        ],
+        pedagogicalMessage,
+        technicalDetails: formatTechnicalDetails({ typecheck, lint, tests }),
+        validatedAt: now,
+      };
+
+      let next = recordValidation(current, exerciseId, result);
+      if (success) {
+        next = completeExercise(next, exerciseId, xp, now);
+      }
+      saveQuestState(localStorage, next);
+      syncQuestState(next);
+      setDetailsOpen(true);
+      setActivity({
+        status: success ? 'success' : 'failure',
+        message: pedagogicalMessage,
+      });
+    } catch (error) {
+      if (!isCurrentOperation(token)) {
+        return;
+      }
+
+      const message = processErrorMessage('La validation a echoue', error);
+      setOperationError(message);
+      setDetailsOpen(true);
+      setActivity({
+        status: 'failure',
+        message,
+      });
+    } finally {
+      finishOperation(token);
     }
-
-    setProgress(next.exerciseProgress[exerciseId] ?? null);
-    setActivity({
-      status: success ? 'success' : 'failure',
-      message: result.pedagogicalMessage,
-    });
   }
 
   function showNextHint() {
@@ -275,6 +409,24 @@ export default function ExerciseActions({
   }
 
   useEffect(() => {
+    const activeProcessKillers = processKillers.current;
+    setMounted(true);
+    setCompatible(
+      typeof crossOriginIsolated !== 'undefined' &&
+        crossOriginIsolated &&
+        typeof SharedArrayBuffer !== 'undefined' &&
+        'serviceWorker' in navigator,
+    );
+
+    return () => {
+      operationToken.current += 1;
+      operationRunning.current = false;
+      activeProcessKillers.forEach((kill) => kill());
+      activeProcessKillers.clear();
+    };
+  }, []);
+
+  useEffect(() => {
     const loaded = loadQuestState(localStorage);
     const opened = openExercise(loaded.state, exerciseId, contentVersion);
     saveQuestState(localStorage, opened);
@@ -287,6 +439,7 @@ export default function ExerciseActions({
     let documentCleanups: Array<() => void> = [];
     let restored = false;
     let readyAnnounced = false;
+    workspaceRevision.current = 0;
     const originalSolve = tutorialStore.solve.bind(tutorialStore);
     const originalReset = tutorialStore.reset.bind(tutorialStore);
 
@@ -328,6 +481,7 @@ export default function ExerciseActions({
         documentCleanups = Object.keys(tutorialStore.documents.get()).map(
           (path) =>
             tutorialStore.onDocumentChanged(path, () => {
+              workspaceRevision.current += 1;
               clearTimeout(saveTimer);
               saveTimer = setTimeout(() => {
                 const snapshot = tutorialStore.takeSnapshot().files;
@@ -392,31 +546,272 @@ export default function ExerciseActions({
     return () => window.removeEventListener('keydown', handleShortcut);
   }, []);
 
+  useEffect(() => {
+    function warnBeforeLeaving(event: MouseEvent) {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      const target = event.target;
+      const link =
+        target instanceof Element
+          ? target.closest<HTMLAnchorElement>('a[href]')
+          : null;
+      if (!link || link.target === '_blank' || link.hasAttribute('download')) {
+        return;
+      }
+
+      const destination = new URL(link.href, window.location.href);
+      if (
+        destination.origin !== window.location.origin ||
+        (destination.pathname === window.location.pathname &&
+          destination.search === window.location.search)
+      ) {
+        return;
+      }
+
+      if (operationRunning.current) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.alert(
+          'Une action est en cours. Attendez sa fin avant de quitter la mission.',
+        );
+        return;
+      }
+
+      if (progress?.status === 'completed') {
+        return;
+      }
+
+      const message =
+        "Cette mission n'est pas encore validee. Continuer sans gagner les XP ?";
+      if (!window.confirm(message)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+
+    document.addEventListener('click', warnBeforeLeaving, true);
+    return () => document.removeEventListener('click', warnBeforeLeaving, true);
+  }, [progress?.status]);
+
+  useEffect(() => {
+    function warnBeforeUnload(event: BeforeUnloadEvent) {
+      if (progress?.status === 'completed' && !operationRunning.current) {
+        return;
+      }
+
+      event.preventDefault();
+    }
+
+    window.addEventListener('beforeunload', warnBeforeUnload);
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload);
+  }, [progress?.status]);
+
   const validation = progress?.lastValidation;
-  const compatible =
-    typeof crossOriginIsolated === 'boolean' &&
-    crossOriginIsolated &&
-    typeof SharedArrayBuffer !== 'undefined' &&
-    'serviceWorker' in navigator;
 
   function handleStateChange(state: QuestState): void {
     const opened = openExercise(state, exerciseId, contentVersion);
     saveQuestState(localStorage, opened);
-    setQuestState(opened);
-    setProgress(opened.exerciseProgress[exerciseId] ?? null);
-    setTotalXp(opened.xp);
+    syncQuestState(opened);
     setCorruptedState(getCorruptedQuestState(localStorage) !== null);
   }
 
-  if (!compatible) {
-    return (
-      <section className="quest-compatibility" role="status">
-        <strong>Atelier interactif indisponible</strong>
-        <p>
-          L'atelier de code fonctionne de maniere optimale sur Chrome ou Edge
-          depuis un ordinateur. Votre progression reste enregistree dans votre
-          navigateur.
-        </p>
+  const completed = progress?.status === 'completed';
+  const busy = operation !== null;
+  const toolbarTarget = mounted
+    ? document.getElementById('quest-toolbar-root')
+    : null;
+  const statusLabel = completed
+    ? 'Mission validee'
+    : operation === 'verify'
+      ? 'Validation en cours'
+      : validation?.status === 'failure'
+        ? 'A corriger'
+        : runtimeReady
+          ? 'A valider'
+          : 'Preparation';
+  const showDetailsAction =
+    operationError !== null ||
+    validation !== undefined ||
+    activity.status === 'failure';
+
+  const toolbar = (
+    <div
+      className="quest-toolbar"
+      data-status={activity.status}
+      aria-busy={busy}
+    >
+      <div className="quest-toolbar__state">
+        <span className="quest-toolbar__dot" aria-hidden="true" />
+        <span>
+          <strong>{statusLabel}</strong>
+          <small aria-live="polite">{activity.message}</small>
+        </span>
+      </div>
+
+      <strong className="quest-toolbar__xp">{totalXp} XP</strong>
+
+      {compatible === false ? (
+        <span className="quest-toolbar__unsupported">
+          Validation indisponible sur ce navigateur
+        </span>
+      ) : (
+        <>
+          <button
+            className="quest-toolbar__primary"
+            data-quest-action="verify"
+            disabled={!runtimeReady || busy}
+            onClick={() => void verifyExercise()}
+          >
+            {operation === 'verify'
+              ? 'Validation...'
+              : completed
+                ? 'Revalider la mission'
+                : `Valider la mission · +${xp} XP`}
+          </button>
+
+          {showDetailsAction && (
+            <button
+              className="quest-toolbar__result-button"
+              type="button"
+              aria-expanded={detailsOpen}
+              onClick={() => setDetailsOpen((open) => !open)}
+            >
+              Resultat
+            </button>
+          )}
+
+          <details className="quest-toolbar__tools">
+            <summary>Outils</summary>
+            <div className="quest-toolbar__menu">
+              <button
+                data-quest-action="run"
+                disabled={!runtimeReady || busy}
+                onClick={() => void runExercise()}
+              >
+                Executer
+              </button>
+              <button
+                data-quest-action="format"
+                disabled={!runtimeReady || busy}
+                onClick={() => void formatCurrentFile()}
+              >
+                Formater
+              </button>
+              <button
+                data-quest-action="save"
+                disabled={!runtimeReady || busy}
+                onClick={() => saveCurrentFiles()}
+              >
+                Sauvegarder
+              </button>
+              <button disabled={busy} onClick={showNextHint}>
+                Afficher un indice
+              </button>
+              <button disabled={busy} onClick={showSolution}>
+                Voir la solution
+              </button>
+              <button disabled={busy} onClick={resetExercise}>
+                Reinitialiser
+              </button>
+              <button
+                disabled={!runtimeReady || busy}
+                onClick={openLargePreview}
+              >
+                Agrandir le resultat
+              </button>
+            </div>
+          </details>
+
+          {detailsOpen && (
+            <section
+              className="quest-toolbar__results"
+              aria-label="Resultat de la validation"
+            >
+              <div className="quest-toolbar__results-heading">
+                <strong>Resultat de la validation</strong>
+                <button
+                  type="button"
+                  aria-label="Fermer le resultat"
+                  onClick={() => setDetailsOpen(false)}
+                >
+                  Fermer
+                </button>
+              </div>
+              {operationError ? (
+                <p role="alert">Erreur technique : {operationError}</p>
+              ) : validation ? (
+                <ValidationDetails validation={validation} />
+              ) : (
+                <p>Erreur technique : {activity.message}</p>
+              )}
+            </section>
+          )}
+        </>
+      )}
+    </div>
+  );
+
+  return (
+    <>
+      {toolbarTarget && createPortal(toolbar, toolbarTarget)}
+
+      <section className="quest-actions" aria-label="Suivi de la mission">
+        <div className="quest-actions__heading">
+          <div>
+            <p>Validation de la mission</p>
+            <h2>{completed ? 'Mission validee' : 'Mission en cours'}</h2>
+          </div>
+          <strong>{totalXp} XP</strong>
+        </div>
+
+        {compatible === null && (
+          <p className="quest-actions__message">
+            Verification de la compatibilite...
+          </p>
+        )}
+
+        {compatible === false && (
+          <div className="quest-compatibility" role="status">
+            <strong>Atelier interactif indisponible</strong>
+            <p>
+              Utilisez Chrome ou Edge sur ordinateur. La validation requiert
+              WebContainers, SharedArrayBuffer et un contexte isole.
+            </p>
+          </div>
+        )}
+
+        {compatible && !validation && (
+          <p className="quest-actions__message">
+            Modifiez le code, puis utilisez le bouton « Valider la mission »
+            toujours visible dans la barre superieure.
+          </p>
+        )}
+
+        {corruptedState && (
+          <p className="quest-actions__warning" role="alert">
+            Une ancienne progression illisible a ete ignoree. Elle pourra etre
+            exportee ou supprimee depuis les reglages.
+          </p>
+        )}
+
+        {(progress?.hintsRevealed ?? []).map((hintIndex) => (
+          <div className="quest-hint" key={hintIndex}>
+            <strong>Indice {hintIndex + 1}</strong>
+            <p>{hints[hintIndex]}</p>
+          </div>
+        ))}
+
+        {validation && <ValidationDetails validation={validation} />}
+
         {questState && (
           <ProgressSettings
             state={questState}
@@ -424,111 +819,99 @@ export default function ExerciseActions({
           />
         )}
       </section>
-    );
-  }
+    </>
+  );
+}
 
+function ValidationDetails({ validation }: { validation: ValidationResult }) {
   return (
-    <section className="quest-actions" aria-label="Actions de l exercice">
-      <div className="quest-actions__status">
-        <span>
-          {progress?.status === 'completed' ? 'Mission validee' : 'En cours'}
-        </span>
-        <strong>{totalXp} XP</strong>
-      </div>
-
-      {corruptedState && (
-        <p className="quest-actions__warning" role="alert">
-          Une ancienne progression illisible a ete ignoree. Elle pourra etre
-          exportee ou supprimee depuis les reglages.
-        </p>
-      )}
-
-      <div className="quest-actions__buttons">
-        <button data-quest-action="run" onClick={() => void runExercise()}>
-          Executer
-        </button>
-        <button
-          className="quest-actions__primary"
-          data-quest-action="verify"
-          onClick={() => void verifyExercise()}
-        >
-          Verifier
-        </button>
-        <button
-          data-quest-action="format"
-          onClick={() => void formatCurrentFile()}
-        >
-          Formater
-        </button>
-        <button data-quest-action="save" onClick={saveCurrentFiles}>
-          Sauvegarder
-        </button>
-        <button onClick={resetExercise}>Reinitialiser</button>
-        <button onClick={showNextHint}>Indice</button>
-        <button onClick={showSolution}>Voir la solution</button>
-        <button onClick={openLargePreview}>Agrandir le resultat</button>
-      </div>
-
-      <p
-        className={`quest-actions__message quest-actions__message--${activity.status}`}
-        aria-live="polite"
-      >
-        {activity.message}
+    <div className="quest-validation" data-status={validation.status}>
+      <p className="quest-validation__summary">
+        {validation.pedagogicalMessage}
       </p>
-
-      {(progress?.hintsRevealed ?? []).map((hintIndex) => (
-        <div className="quest-hint" key={hintIndex}>
-          <strong>Indice {hintIndex + 1}</strong>
-          <p>{hints[hintIndex]}</p>
-        </div>
-      ))}
-
-      {validation && (
-        <div className="quest-validation">
-          <h2>Resultat de la verification</h2>
-          <ul>
-            {validation.conditions.map((condition) => (
-              <li key={condition.id} data-status={condition.status}>
-                <strong>{condition.label}</strong>
-                <span>{condition.message}</span>
-              </li>
-            ))}
-          </ul>
-          <details>
-            <summary>Details techniques</summary>
-            <pre>{validation.technicalDetails}</pre>
-          </details>
-        </div>
-      )}
-
-      {questState && (
-        <ProgressSettings
-          state={questState}
-          onStateChange={handleStateChange}
-        />
-      )}
-    </section>
+      <ul>
+        {validation.conditions.map((condition) => (
+          <li key={condition.id} data-status={condition.status}>
+            <strong>{condition.label}</strong>
+            <span>{condition.message}</span>
+          </li>
+        ))}
+      </ul>
+      <details>
+        <summary>Details techniques</summary>
+        <pre>{validation.technicalDetails}</pre>
+      </details>
+    </div>
   );
 }
 
 async function runProcess(
   command: string,
   args: string[],
+  processKillers: Set<() => void>,
+  isActive: () => boolean,
 ): Promise<ProcessResult> {
+  assertOperationActive(isActive);
   const instance = await webcontainer;
+  assertOperationActive(isActive);
   const process = await instance.spawn(command, args);
-  let output = '';
-  const outputComplete = process.output.pipeTo(
-    new WritableStream({
-      write(chunk) {
-        output += chunk;
-      },
-    }),
-  );
-  const exitCode = await process.exit;
-  await outputComplete;
+  const kill = () => process.kill();
 
-  return { exitCode, output };
+  if (!isActive()) {
+    kill();
+    throw new Error('Operation annulee.');
+  }
+
+  processKillers.add(kill);
+  let output = '';
+  let outputFailure: unknown;
+  const outputComplete = process.output
+    .pipeTo(
+      new WritableStream({
+        write(chunk) {
+          output += chunk;
+        },
+      }),
+    )
+    .catch((error: unknown) => {
+      outputFailure = error;
+    });
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+
+  try {
+    const exitCode = await Promise.race([
+      process.exit,
+      new Promise<never>((_, reject) => {
+        timeout = setTimeout(() => {
+          kill();
+          reject(
+            new Error(
+              `La commande ${command} a depasse ${PROCESS_TIMEOUT_MS / 1000} secondes.`,
+            ),
+          );
+        }, PROCESS_TIMEOUT_MS);
+      }),
+    ]);
+    await outputComplete;
+    if (outputFailure) {
+      throw outputFailure;
+    }
+
+    return { exitCode, output };
+  } finally {
+    clearTimeout(timeout);
+    processKillers.delete(kill);
+  }
+}
+
+function assertOperationActive(isActive: () => boolean): void {
+  if (!isActive()) {
+    throw new Error('Operation annulee.');
+  }
+}
+
+function processErrorMessage(context: string, error: unknown): string {
+  return `${context}. ${error instanceof Error ? error.message : 'Erreur inconnue.'}`;
 }
 
 function createCondition(
@@ -567,5 +950,17 @@ function selectModifiedFiles(
     Object.entries(snapshot).filter(
       ([path, content]) => baseline[path] !== content,
     ),
+  );
+}
+
+function filesAreEqual(
+  first: Record<string, string>,
+  second: Record<string, string>,
+): boolean {
+  const paths = Object.keys(first);
+
+  return (
+    paths.length === Object.keys(second).length &&
+    paths.every((path) => first[path] === second[path])
   );
 }

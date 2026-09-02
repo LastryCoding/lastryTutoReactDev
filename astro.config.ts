@@ -7,6 +7,9 @@ export default defineConfig({
   },
   integrations: [
     tutorialkit({
+      components: {
+        TopBar: './src/components/QuestTopBar.astro',
+      },
       defaultRoutes: 'tutorial-only',
       expressiveCodeThemes: ['github-light', 'github-dark'],
     }),

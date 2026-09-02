@@ -12,7 +12,6 @@ import {
   resetQuestState,
   saveQuestState,
 } from '@/storage/progress-store';
-import './ProgressSettings.css';
 
 interface ProgressSettingsProps {
   state: QuestState;

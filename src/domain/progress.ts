@@ -98,8 +98,10 @@ export function openExercise(
 ): QuestState {
   const current = state.exerciseProgress[exerciseId];
   let exercise = current ?? createExerciseProgress(contentVersion, now);
+  const contentChanged =
+    current !== undefined && current.contentVersion !== contentVersion;
 
-  if (current && current.contentVersion !== contentVersion) {
+  if (contentChanged) {
     exercise = {
       ...createExerciseProgress(contentVersion, now),
       archivedFiles:
@@ -181,7 +183,24 @@ export function completeExercise(
   const exercise = requireExercise(state, exerciseId);
 
   if (state.completedExercises.includes(exerciseId)) {
-    return state;
+    if (exercise.status === 'completed') {
+      return state;
+    }
+
+    return touch(
+      {
+        ...state,
+        exerciseProgress: {
+          ...state.exerciseProgress,
+          [exerciseId]: {
+            ...exercise,
+            status: 'completed',
+            completedAt: exercise.completedAt ?? now,
+          },
+        },
+      },
+      now,
+    );
   }
 
   const completedExercises = [...state.completedExercises, exerciseId];

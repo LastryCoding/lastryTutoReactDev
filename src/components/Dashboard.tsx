@@ -10,6 +10,7 @@ import { updateSettings, type QuestState } from '@/domain/progress';
 import { loadQuestState, saveQuestState } from '@/storage/progress-store';
 import ProgressSettings from './ProgressSettings';
 import './Dashboard.css';
+import './ProgressSettings.css';
 
 interface DashboardProps {
   lessons: CurriculumLesson[];

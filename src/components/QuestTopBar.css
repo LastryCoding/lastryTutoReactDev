@@ -1,0 +1,46 @@
+.quest-topbar {
+  position: relative;
+  z-index: 80;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.25rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--tk-elements-app-borderColor);
+  background: var(--tk-elements-topBar-backgroundColor);
+  color: var(--tk-elements-app-textColor);
+}
+
+.quest-topbar__brand,
+.quest-topbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quest-topbar__brand {
+  min-width: 6rem;
+}
+
+.quest-topbar__mission {
+  min-width: 0;
+}
+
+@media (max-width: 48rem) {
+  .quest-topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem 0.75rem;
+    min-height: 7rem;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .quest-topbar__brand {
+    min-width: 0;
+  }
+
+  .quest-topbar__mission {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

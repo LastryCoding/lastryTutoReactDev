@@ -38,3 +38,34 @@ test('reste utilisable sur un petit ecran', async ({ page }) => {
     page.getByRole('heading', { name: 'Les six mondes' }),
   ).toBeVisible();
 });
+
+test('garde la validation visible dans les vues mobiles', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/0-camp-base/1-premiers-pas/modifier-un-texte/');
+
+  const validationButton = page.getByRole('button', {
+    name: /Valider la mission/,
+  });
+  await expect(validationButton).toBeVisible();
+  await page.getByRole('button', { name: 'Editor', exact: true }).click();
+  await expect(validationButton).toBeVisible();
+});
+
+test('avertit avant de quitter une mission non validee', async ({ page }) => {
+  await page.goto('/0-camp-base/1-premiers-pas/modifier-un-texte/');
+  await expect(
+    page.getByRole('button', { name: /Valider la mission/ }),
+  ).toBeVisible();
+
+  let warningMessage = '';
+  page.once('dialog', async (dialog) => {
+    warningMessage = dialog.message();
+    await dialog.dismiss();
+  });
+  await page.locator('header a[href$="afficher-expression-jsx"]').click();
+  expect(warningMessage).toContain("Cette mission n'est pas encore validee");
+
+  await expect(page).toHaveURL(
+    /\/0-camp-base\/1-premiers-pas\/modifier-un-texte\/$/,
+  );
+});

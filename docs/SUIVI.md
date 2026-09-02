@@ -9,6 +9,7 @@ preuve de fonctionnement.
 ## Etat courant
 
 - Phase locale terminee : RQ-16 Publication V1.
+- Correctif UX de validation des missions valide localement, pret a publier.
 - Depot GitHub : `https://github.com/LastryCoding/lastryTutoReactDev`.
 - Visibilite GitHub : publique, verifiee via l'API GitHub.
 - Depot local : vide au demarrage, sans commit, branche initiale `master`.
@@ -203,6 +204,34 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - depot public verifie via l'API GitHub ;
 - workflow CI public `33583750712` termine avec la conclusion `success`.
 
+### 2026-09-02 - Correctif UX de validation des missions
+
+- barre de validation persistante integree au TopBar TutorialKit sur desktop et
+  mobile, avec XP, resultat detaille et menu d'outils ;
+- styles des actions et des reglages charges globalement sur les pages de lecon ;
+- echec, succes, revalidation et erreurs WebContainer restitues explicitement ;
+- attribution des XP atomique et idempotente, y compris apres une progression
+  locale incoherente ;
+- une nouvelle version de contenu conserve les XP historiques mais exige une
+  nouvelle validation, y compris apres reouverture de la mission ;
+- modification du code pendant la validation detectee avant toute attribution ;
+- processus limites a 120 secondes, annules a la navigation et proteges contre
+  tout resultat obsolete ;
+- avertissement avant de quitter une mission non validee et navigation bloquee
+  tant qu'une operation est effectivement en cours ;
+- `pnpm format:check` et `pnpm lint` : succes ;
+- `pnpm typecheck` : 0 erreur, 0 avertissement, 0 hint ;
+- `pnpm test` : 15 tests passes dans 4 fichiers ;
+- `pnpm test:e2e` : 5 tests passes sur Microsoft Edge, dont mobile, sortie non
+  validee, edition pendant validation, annulation par navigation et revalidation
+  sans double XP ;
+- `pnpm build` : succes, 52 exercices valides et 53 pages generees ;
+- image Docker finale reconstruite : succes ;
+- conteneur final : etat `healthy`, accueil et mission HTTP 200, redirection de
+  la route sans slash HTTP 301 relative, route inconnue HTTP 404 et CSS de la
+  barre effectivement lie au HTML genere.
+
 ## Prochaine porte
 
-RQ-17 Deploiement VPS reste hors du poste local et reserve a l'agent dedie.
+Le redeploiement de la derniere branche `main` reste hors du poste local et
+reserve a l'agent VPS dedie.

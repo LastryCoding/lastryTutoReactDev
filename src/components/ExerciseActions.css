@@ -1,98 +1,260 @@
+.quest-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  min-width: 0;
+  color: var(--tk-elements-app-textColor);
+}
+
+.quest-toolbar__state {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.quest-toolbar__state > span:last-child {
+  display: grid;
+  min-width: 0;
+}
+
+.quest-toolbar__state strong,
+.quest-toolbar__state small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quest-toolbar__state strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.quest-toolbar__state small {
+  max-width: 30rem;
+  color: var(--tk-text-secondary);
+  font-size: 0.72rem;
+}
+
+.quest-toolbar__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--tk-text-secondary);
+  box-shadow: 0 0 0 0.2rem
+    color-mix(in srgb, var(--tk-text-secondary) 18%, transparent);
+}
+
+.quest-toolbar[data-status='running'] .quest-toolbar__dot {
+  background: var(--tk-text-info);
+}
+
+.quest-toolbar[data-status='success'] .quest-toolbar__dot {
+  background: var(--tk-text-positive);
+}
+
+.quest-toolbar[data-status='failure'] .quest-toolbar__dot {
+  background: var(--tk-text-warning);
+}
+
+.quest-toolbar__xp {
+  flex: 0 0 auto;
+  color: var(--tk-text-positive);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.quest-toolbar button,
+.quest-toolbar summary {
+  min-height: 2.45rem;
+  border: 1px solid var(--tk-border-brighter);
+  border-radius: 0.55rem;
+  background: var(--tk-background-secondary);
+  color: var(--tk-elements-app-textColor);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.quest-toolbar button {
+  padding: 0.5rem 0.75rem;
+}
+
+.quest-toolbar button:hover:not(:disabled),
+.quest-toolbar summary:hover {
+  border-color: var(--tk-border-accent);
+  background: var(--tk-background-active);
+}
+
+.quest-toolbar button:focus-visible,
+.quest-toolbar summary:focus-visible {
+  outline: 3px solid var(--tk-border-accent);
+  outline-offset: 2px;
+}
+
+.quest-toolbar button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.quest-toolbar .quest-toolbar__primary {
+  border-color: var(--tk-border-positive);
+  background: var(--tk-elements-primaryButton-backgroundColor);
+  color: var(--tk-elements-primaryButton-textColor);
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.quest-toolbar .quest-toolbar__primary:hover:not(:disabled) {
+  background: var(--tk-elements-primaryButton-backgroundColorHover);
+  color: var(--tk-elements-primaryButton-textColorHover);
+}
+
+.quest-toolbar__unsupported {
+  color: var(--tk-text-warning);
+  font-size: 0.8rem;
+}
+
+.quest-toolbar__tools {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.quest-toolbar__tools > summary {
+  display: grid;
+  place-items: center;
+  padding: 0.45rem 0.7rem;
+  list-style: none;
+}
+
+.quest-toolbar__tools > summary::-webkit-details-marker {
+  display: none;
+}
+
+.quest-toolbar__menu,
+.quest-toolbar__results {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  right: 0;
+  z-index: 110;
+  border: 1px solid var(--tk-border-brighter);
+  border-radius: 0.75rem;
+  background: var(--tk-background-primary);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 28%);
+}
+
+.quest-toolbar__menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(9rem, 1fr));
+  gap: 0.5rem;
+  width: min(24rem, calc(100vw - 2rem));
+  padding: 0.75rem;
+}
+
+.quest-toolbar__result-button {
+  flex: 0 0 auto;
+}
+
+.quest-toolbar__results {
+  width: min(38rem, calc(100vw - 2rem));
+  max-height: min(36rem, calc(100vh - 6rem));
+  padding: 1rem;
+  overflow: auto;
+}
+
+.quest-toolbar__results-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.quest-toolbar__results-heading > button {
+  min-height: 2rem;
+  padding: 0.3rem 0.55rem;
+}
+
 .quest-actions {
   display: grid;
   gap: 0.9rem;
   margin: 1.5rem 0;
   padding: 1rem;
-  border: 1px solid rgb(86 117 151 / 45%);
+  border: 1px solid var(--tk-border-brighter);
   border-radius: 0.9rem;
-  background: linear-gradient(145deg, rgb(13 31 52 / 92%), rgb(8 22 39 / 96%));
-  color: #eef6ff;
-  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 18%);
+  background: var(--tk-background-secondary);
+  color: var(--tk-elements-app-textColor);
 }
 
-.quest-actions__status {
+.quest-actions__heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  color: #a9bad0;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
+}
+
+.quest-actions__heading p,
+.quest-actions__heading h2 {
+  margin: 0;
+}
+
+.quest-actions__heading p {
+  color: var(--tk-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.quest-actions__status strong {
-  color: #8ee3c8;
+.quest-actions__heading h2 {
+  font-size: 1.1rem;
 }
 
-.quest-actions__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.quest-actions button {
-  min-height: 2.5rem;
-  padding: 0.55rem 0.8rem;
-  border: 1px solid #3a5575;
-  border-radius: 0.55rem;
-  background: #152b46;
-  color: #eef6ff;
-  cursor: pointer;
-  font: inherit;
-}
-
-.quest-actions button:hover {
-  border-color: #8ee3c8;
-  background: #1c3859;
-}
-
-.quest-actions button:focus-visible {
-  outline: 3px solid #f4c95d;
-  outline-offset: 2px;
-}
-
-.quest-actions .quest-actions__primary {
-  border-color: #8ee3c8;
-  background: #8ee3c8;
-  color: #082237;
-  font-weight: 750;
+.quest-actions__heading > strong {
+  color: var(--tk-text-positive);
 }
 
 .quest-actions__message,
 .quest-actions__warning,
-.quest-hint {
+.quest-hint,
+.quest-compatibility {
   margin: 0;
   padding: 0.75rem;
-  border-left: 3px solid #617b9a;
+  border-left: 3px solid var(--tk-border-info);
   border-radius: 0.35rem;
-  background: rgb(255 255 255 / 5%);
+  background: var(--tk-background-primary);
 }
 
-.quest-actions__message--success {
-  border-left-color: #8ee3c8;
+.quest-actions__warning,
+.quest-compatibility {
+  border-left-color: var(--tk-border-warning);
 }
 
-.quest-actions__message--failure,
-.quest-actions__warning {
-  border-left-color: #f4c95d;
-}
-
-.quest-actions__message--running {
-  border-left-color: #74a8ff;
-}
-
-.quest-hint strong {
-  color: #f4c95d;
-}
-
+.quest-compatibility p,
 .quest-hint p {
   margin: 0.35rem 0 0;
 }
 
-.quest-validation h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1rem;
+.quest-hint strong {
+  color: var(--tk-text-warning);
+}
+
+.quest-validation__summary {
+  margin: 0 0 0.8rem;
+  font-weight: 700;
+}
+
+.quest-validation[data-status='success'] .quest-validation__summary {
+  color: var(--tk-text-positive);
+}
+
+.quest-validation[data-status='failure'] .quest-validation__summary {
+  color: var(--tk-text-warning);
 }
 
 .quest-validation ul {
@@ -107,11 +269,15 @@
   display: grid;
   gap: 0.15rem;
   padding-left: 1rem;
-  border-left: 3px solid #f4c95d;
+  border-left: 3px solid var(--tk-border-warning);
 }
 
 .quest-validation li[data-status='passed'] {
-  border-left-color: #8ee3c8;
+  border-left-color: var(--tk-border-positive);
+}
+
+.quest-validation li span {
+  color: var(--tk-text-secondary);
 }
 
 .quest-validation details {
@@ -123,27 +289,70 @@
   overflow: auto;
   padding: 0.75rem;
   border-radius: 0.45rem;
-  background: #050c16;
-  color: #c5d4e7;
+  background: var(--tk-background-active-secondary);
+  color: var(--tk-elements-app-textColor);
   font-size: 0.75rem;
   white-space: pre-wrap;
 }
 
-.quest-compatibility {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  border: 1px solid #c8912f;
-  border-radius: 0.75rem;
-  background: #302511;
-  color: #fff4d2;
+@media (max-width: 64rem) {
+  .quest-toolbar__state small {
+    max-width: 15rem;
+  }
 }
 
-.quest-compatibility p {
-  margin-bottom: 0;
+@media (max-width: 48rem) {
+  .quest-toolbar {
+    gap: 0.4rem;
+  }
+
+  .quest-toolbar__state small {
+    display: none;
+  }
+
+  .quest-toolbar__state strong {
+    font-size: 0.7rem;
+  }
+
+  .quest-toolbar__xp {
+    font-size: 0.75rem;
+  }
+
+  .quest-toolbar .quest-toolbar__primary {
+    min-height: 2.35rem;
+    padding-inline: 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .quest-toolbar__tools > summary {
+    min-height: 2.35rem;
+    font-size: 0.75rem;
+  }
+
+  .quest-toolbar__results {
+    position: fixed;
+    top: auto;
+    right: 0.75rem;
+    bottom: 3.75rem;
+    left: 0.75rem;
+    width: auto;
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 25rem) {
+  .quest-toolbar__state {
+    display: none;
+  }
+
+  .quest-toolbar__xp {
+    margin-right: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .quest-actions button {
+  .quest-toolbar *,
+  .quest-actions * {
     scroll-behavior: auto;
   }
 }
