@@ -22,7 +22,7 @@ ne passe a `Termine` qu'apres code, verification, documentation et commit.
 | RQ-12 | Monde bonus                       | Termine          | Exercices bonus livres sans bloquer le parcours principal                |
 | RQ-13 | Qualite transversale              | A faire          | A11y, responsive, unitaires, composants et Playwright verts              |
 | RQ-14 | Documentation finale              | A faire          | Guides exercice, architecture, confidentialite et captures a jour        |
-| RQ-15 | CI et livraison statique          | A faire          | Workflow, Docker, Compose et exemples de deploiement valides             |
+| RQ-15 | CI et livraison statique          | Termine          | Workflow, Docker, Compose et exemples de deploiement valides             |
 | RQ-16 | Publication V1                    | A faire          | Historique inspecte, `main` pousse, depot public et CI verifies          |
 | RQ-17 | Deploiement VPS                   | Hors poste local | A realiser et verifier par l'agent VPS                                   |
 
@@ -49,3 +49,4 @@ metadonnees, le contenu, les tests et le suivi dans le meme commit fonctionnel.
 - 2026-09-02 : RQ-01 termine, socle TutorialKit compile et servi localement.
 - 2026-09-02 : RQ-02 termine, tranche verticale validee de bout en bout sur Edge.
 - 2026-09-02 : RQ-06 a RQ-12 termines, 44 missions et 8 bonus valides.
+- 2026-09-02 : RQ-15 termine, CI et image nginx non privilegiee validees.

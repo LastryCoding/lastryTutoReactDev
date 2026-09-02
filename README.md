@@ -123,12 +123,12 @@ si l'environnement est incompatible.
 
 ## Production et Docker
 
-Le build produit un site statique. L'image de production contiendra uniquement
-les fichiers construits et un serveur statique non privilegie. Le Compose ne
-publiera pas de port Internet et rejoindra le reseau Docker externe de Caddy.
+Le build produit un site statique. L'image de production contient uniquement les
+fichiers construits et un serveur nginx non privilegie. Le Compose ne publie pas
+de port Internet et rejoint le reseau Docker externe de Caddy.
 
 Le deploiement VPS est realise par un agent distinct. Les artefacts et commandes
-de deploiement seront documentes dans `docs/DEPLOYMENT.md`.
+de deploiement sont documentes dans [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Confidentialite
 
@@ -138,9 +138,9 @@ exporter ou supprimer ses donnees locales depuis l'application.
 
 ## Tests et qualite
 
-La CI executera le lint, le typecheck, les tests unitaires, les tests de
-composants, la validation de tout le contenu et le build. Playwright couvrira le
-parcours critique incluant sauvegarde, execution, validation, XP et export/import.
+La CI execute le formatage, le lint, le typecheck, les tests unitaires, les tests
+de composants, la validation de tout le contenu et le build. Playwright couvre
+localement le parcours critique incluant sauvegarde, execution, validation et XP.
 
 ## Licence et WebContainers
 

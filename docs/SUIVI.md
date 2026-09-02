@@ -121,6 +121,22 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - `pnpm validate:exercises` : 52 starters types en echec comportemental et 52
   solutions typees, lintees et valides.
 
+### 2026-09-02 - RQ-15 CI et livraison statique
+
+- workflow GitHub Actions limite aux permissions de lecture et controles de
+  qualite alignes avec la validation locale ;
+- Dockerfile multi-stage : build Node/pnpm puis fichiers statiques uniquement ;
+- nginx non privilegie, lance sous l'identite `101:101` sur le port `8080` ;
+- Compose sans port hote, capacites supprimees, racine en lecture seule et
+  reseau Caddy externe obligatoire ;
+- healthcheck interne et page 404 statique dediee ;
+- configuration Caddy documentee avec COOP et COEP pour WebContainers ;
+- `docker compose config --quiet` avec `CADDY_NETWORK=caddy` : succes ;
+- construction de l'image depuis zero : succes, 53 pages statiques generees ;
+- conteneur de verification : etat `healthy`, accueil HTTP 200, route inconnue
+  HTTP 404 et endpoint `/healthz` egal a `healthy` ;
+- deploiement, exploitation et rollback documentes dans `docs/DEPLOYMENT.md`.
+
 ## Prochaine porte
 
 Completer RQ-03 avec import/export, reinitialisation totale, gestion utilisateur

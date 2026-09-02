@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page introuvable | React Quest</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      main {
+        width: min(36rem, calc(100% - 3rem));
+      }
+
+      p:first-child {
+        color: #a78bfa;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin-bottom: 0.5rem;
+        font-size: clamp(2rem, 8vw, 4rem);
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #c4b5fd;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p>Erreur 404</p>
+      <h1>Cette quete n'existe pas.</h1>
+      <p>Le chemin demande est introuvable ou a ete deplace.</p>
+      <a href="/">Revenir a l'accueil</a>
+    </main>
+  </body>
+</html>
