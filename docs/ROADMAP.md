@@ -23,7 +23,7 @@ ne passe a `Termine` qu'apres code, verification, documentation et commit.
 | RQ-13 | Qualite transversale              | Termine          | A11y, responsive, unitaires, composants et Playwright verts              |
 | RQ-14 | Documentation finale              | Termine          | Guides exercice, architecture, confidentialite et captures a jour        |
 | RQ-15 | CI et livraison statique          | Termine          | Workflow, Docker, Compose et exemples de deploiement valides             |
-| RQ-16 | Publication V1                    | A faire          | Historique inspecte, `main` pousse, depot public et CI verifies          |
+| RQ-16 | Publication V1                    | Termine          | Historique inspecte, `main` pousse, depot public et CI verifies          |
 | RQ-17 | Deploiement VPS                   | Hors poste local | A realiser et verifier par l'agent VPS                                   |
 
 ## Strategie de livraison
@@ -53,3 +53,4 @@ metadonnees, le contenu, les tests et le suivi dans le meme commit fonctionnel.
 - 2026-09-02 : RQ-06 a RQ-12 termines, 44 missions et 8 bonus valides.
 - 2026-09-02 : RQ-14 termine, documentation et captures finales alignees.
 - 2026-09-02 : RQ-15 termine, CI et image nginx non privilegiee validees.
+- 2026-09-02 : RQ-16 termine, candidate V1 poussee et CI publique verte.

@@ -8,7 +8,7 @@ preuve de fonctionnement.
 
 ## Etat courant
 
-- Phase active : RQ-16 Publication V1.
+- Phase locale terminee : RQ-16 Publication V1.
 - Depot GitHub : `https://github.com/LastryCoding/lastryTutoReactDev`.
 - Visibilite GitHub : publique, verifiee via l'API GitHub.
 - Depot local : vide au demarrage, sans commit, branche initiale `master`.
@@ -27,8 +27,8 @@ preuve de fonctionnement.
 | Git        | `2.49.0.windows.1` | Verifie       |
 | GitHub CLI | non installe       | Limite connue |
 
-L'absence de GitHub CLI n'empeche pas un push Git si les identifiants HTTPS sont
-disponibles. La capacite de push n'est pas encore verifiee.
+L'absence de GitHub CLI n'empeche pas un push Git : la capacite de push HTTPS
+vers le remote `lastry` est verifiee.
 
 ## Versions verrouillees
 
@@ -196,7 +196,13 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - conteneur final : utilisateur `101:101`, etat `healthy`, accueil HTTP 200,
   dashboard present, endpoint de sante valide et route inconnue HTTP 404.
 
+### 2026-09-02 - RQ-16 Publication V1
+
+- historique inspecte et branche `main` synchronisee avec le remote `lastry` ;
+- candidate V1 poussee dans le commit `2a8a6c3` ;
+- depot public verifie via l'API GitHub ;
+- workflow CI public `33583750712` termine avec la conclusion `success`.
+
 ## Prochaine porte
 
-Executer la validation finale complete, pousser `main`, puis verifier le workflow
-CI public avant de fermer RQ-16. Le deploiement VPS reste reserve a l'agent dedie.
+RQ-17 Deploiement VPS reste hors du poste local et reserve a l'agent dedie.
