@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Réduire des actions discriminées
+slug: reduire-actions-discriminees
+template: observatory-04
+focus: /src/App.tsx
+custom:
+  id: observatory-04
+  world: 4
+  order: 4
+  prerequisites: [observatory-03]
+  estimatedMinutes: 20
+  xp: 110
+  difficulty: avancé
+  concepts:
+    - union discriminée
+    - reducer
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Réduire des actions discriminées
+
+Cette mission fait travailler **union discriminée** et **reducer** dans un petit composant exécutable.
+
+## Objectif
+
+Traiter des actions `add` et `reset` dont les charges utiles diffèrent.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Traiter des actions `add` et `reset` dont les charges utiles diffèrent. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="observatory-04"
+  xp={110}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion union discriminée.',
+    'Traiter des actions `add` et `reset` dont les charges utiles diffèrent.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

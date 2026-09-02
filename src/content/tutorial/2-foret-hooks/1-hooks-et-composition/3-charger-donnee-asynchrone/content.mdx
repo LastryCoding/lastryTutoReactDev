@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Charger une donnée asynchrone
+slug: charger-donnee-asynchrone
+template: forest-03
+focus: /src/App.tsx
+custom:
+  id: forest-03
+  world: 2
+  order: 3
+  prerequisites: [forest-02]
+  estimatedMinutes: 20
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - useEffect
+    - asynchrone
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Charger une donnée asynchrone
+
+Cette mission fait travailler **useEffect** et **asynchrone** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher un état de chargement puis la boussole renvoyée par le service.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher un état de chargement puis la boussole renvoyée par le service. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-03"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useEffect.',
+    'Afficher un état de chargement puis la boussole renvoyée par le service.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

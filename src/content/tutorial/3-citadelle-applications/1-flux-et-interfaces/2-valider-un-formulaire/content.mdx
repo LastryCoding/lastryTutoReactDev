@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Valider un formulaire
+slug: valider-un-formulaire
+template: citadel-02
+focus: /src/App.tsx
+custom:
+  id: citadel-02
+  world: 3
+  order: 2
+  prerequisites: [citadel-01]
+  estimatedMinutes: 20
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - formulaire
+    - validation
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Valider un formulaire
+
+Cette mission fait travailler **formulaire** et **validation** dans un petit composant exécutable.
+
+## Objectif
+
+Refuser un nom vide et afficher une erreur accessible à la soumission.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Refuser un nom vide et afficher une erreur accessible à la soumission. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-02"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion formulaire.',
+    'Refuser un nom vide et afficher une erreur accessible à la soumission.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

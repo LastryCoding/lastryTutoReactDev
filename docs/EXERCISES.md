@@ -15,10 +15,10 @@ src/content/tutorial/<monde>/<chapitre>/<exercice>/
     src/App.tsx
 ```
 
-TutorialKit fusionne `_files` avec `src/templates/react`. Les fichiers du
-template, notamment les tests, restent masques dans l'editeur mais sont executes
-dans WebContainers. `_solution` remplace les fichiers modifies lorsque la
-solution est revelee.
+TutorialKit fusionne `_files` avec un template propre a l'exercice, qui etend
+`src/templates/react`. Les tests dedies restent masques dans l'editeur mais sont
+executes dans WebContainers. `_solution` remplace les fichiers modifies lorsque
+la solution est revelee.
 
 ## Metadonnees
 
@@ -30,6 +30,7 @@ refuse les proprietes metier a la racine.
 type: lesson
 title: Modifier un premier composant
 slug: modifier-un-texte
+template: camp-01
 focus: /src/App.tsx
 custom:
   id: camp-01
@@ -42,13 +43,14 @@ custom:
   concepts:
     - JSX
   contentVersion: 1
+  bonus: false
 ---
 ```
 
-Le registre V1 complet ajoutera les fichiers visibles et masques, les commandes,
-les messages pedagogiques et le recapitulatif. `contentVersion` est incremente
-quand un changement rend l'ancien code incompatible. React Quest archive alors
-les fichiers modifies avant de charger le nouveau starter.
+Le parcours V1 compte 52 exercices : 44 missions principales et 8 bonus.
+`contentVersion` est incremente quand un changement rend l'ancien code
+incompatible. React Quest archive alors les fichiers modifies avant de charger
+le nouveau starter.
 
 ## Contenu pedagogique
 
@@ -77,7 +79,8 @@ Le resultat distingue TypeScript, ESLint et test fonctionnel. Il contient les
 conditions reussies, les conditions restantes, un message pedagogique et les
 sorties techniques repliables.
 
-Le validateur global copie chaque variante sur le meme template et exige :
+Le validateur global resout le template dedie de chaque exercice, copie chaque
+variante dans un projet temporaire commun et exige :
 
 - un code de sortie non nul pour `_files` ;
 - un code de sortie nul pour `_solution`.

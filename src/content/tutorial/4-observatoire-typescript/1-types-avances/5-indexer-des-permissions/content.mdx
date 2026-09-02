@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Indexer des permissions
+slug: indexer-des-permissions
+template: observatory-05
+focus: /src/App.tsx
+custom:
+  id: observatory-05
+  world: 4
+  order: 5
+  prerequisites: [observatory-04]
+  estimatedMinutes: 10
+  xp: 110
+  difficulty: avancé
+  concepts:
+    - Record
+    - type indexé
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Indexer des permissions
+
+Cette mission fait travailler **Record** et **type indexé** dans un petit composant exécutable.
+
+## Objectif
+
+Représenter toutes les permissions de rôle avec `Record`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Représenter toutes les permissions de rôle avec `Record`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="observatory-05"
+  xp={110}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion Record.',
+    'Représenter toutes les permissions de rôle avec `Record`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

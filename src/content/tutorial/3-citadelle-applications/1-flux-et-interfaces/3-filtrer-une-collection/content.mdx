@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Filtrer une collection
+slug: filtrer-une-collection
+template: citadel-03
+focus: /src/App.tsx
+custom:
+  id: citadel-03
+  world: 3
+  order: 3
+  prerequisites: [citadel-02]
+  estimatedMinutes: 10
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - données dérivées
+    - filter
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Filtrer une collection
+
+Cette mission fait travailler **données dérivées** et **filter** dans un petit composant exécutable.
+
+## Objectif
+
+Filtrer les missions terminées à partir d’une sélection.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Filtrer les missions terminées à partir d’une sélection. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-03"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion données dérivées.',
+    'Filtrer les missions terminées à partir d’une sélection.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

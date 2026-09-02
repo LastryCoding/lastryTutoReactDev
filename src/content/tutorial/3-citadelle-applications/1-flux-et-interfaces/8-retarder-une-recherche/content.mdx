@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Retarder une recherche
+slug: retarder-une-recherche
+template: citadel-08
+focus: /src/App.tsx
+custom:
+  id: citadel-08
+  world: 3
+  order: 8
+  prerequisites: [citadel-07]
+  estimatedMinutes: 20
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - debounce
+    - useEffect
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Retarder une recherche
+
+Cette mission fait travailler **debounce** et **useEffect** dans un petit composant exécutable.
+
+## Objectif
+
+Déclencher la recherche 300 ms après la dernière saisie.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Déclencher la recherche 300 ms après la dernière saisie. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-08"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion debounce.',
+    'Déclencher la recherche 300 ms après la dernière saisie.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

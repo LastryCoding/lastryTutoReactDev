@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Construire des onglets accessibles
+slug: onglets-accessibles
+template: portal-01
+focus: /src/App.tsx
+custom:
+  id: portal-01
+  world: 5
+  order: 1
+  prerequisites: [observatory-07]
+  estimatedMinutes: 10
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - ARIA
+    - tabs
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Construire des onglets accessibles
+
+Cette mission fait travailler **ARIA** et **tabs** dans un petit composant exécutable.
+
+## Objectif
+
+Relier les rôles tab, tablist et tabpanel avec l’état de sélection.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Relier les rôles tab, tablist et tabpanel avec l’état de sélection. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-01"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion ARIA.',
+    'Relier les rôles tab, tablist et tabpanel avec l’état de sélection.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

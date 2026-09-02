@@ -195,8 +195,8 @@ export default function ExerciseActions({
           'functional-test',
           'Resultat attendu',
           tests,
-          'Le titre attendu est bien rendu dans le DOM.',
-          "Le composant fonctionne, mais le titre exact n'est pas encore affiche. Verifiez le texte entre <h1> et </h1>.",
+          'Le comportement attendu est confirme par les tests.',
+          "Le comportement attendu n'est pas encore obtenu. Relisez l'objectif et reproduisez l'interaction demandee.",
         ),
       ],
       pedagogicalMessage: success

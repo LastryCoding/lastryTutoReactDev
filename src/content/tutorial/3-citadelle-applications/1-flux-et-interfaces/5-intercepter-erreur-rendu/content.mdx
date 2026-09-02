@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Intercepter une erreur de rendu
+slug: intercepter-erreur-rendu
+template: citadel-05
+focus: /src/App.tsx
+custom:
+  id: citadel-05
+  world: 3
+  order: 5
+  prerequisites: [citadel-04]
+  estimatedMinutes: 20
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - Error Boundary
+    - résilience
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Intercepter une erreur de rendu
+
+Cette mission fait travailler **Error Boundary** et **résilience** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher un écran de secours lorsqu’un composant enfant échoue.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher un écran de secours lorsqu’un composant enfant échoue. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-05"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion Error Boundary.',
+    'Afficher un écran de secours lorsqu’un composant enfant échoue.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

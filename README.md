@@ -28,8 +28,8 @@ Le parcours principal compte 44 exercices de 10 a 20 minutes :
 | 4     | La Riviere des effets       |         7 |
 | 5     | Le Boss final : Job Tracker |         8 |
 
-Un monde bonus Junior++ pourra ajouter jusqu'a 8 exercices sans bloquer la fin
-du parcours principal.
+Huit exercices bonus Junior++ completent ces mondes sans bloquer la fin du
+parcours principal.
 
 ## Principes produit
 
@@ -91,6 +91,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm validate:content
+pnpm validate:exercises
 pnpm test:e2e
 pnpm build
 ```

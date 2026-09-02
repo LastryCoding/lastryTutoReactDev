@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Contrôler un champ
+slug: controler-un-champ
+template: village-05
+focus: /src/App.tsx
+custom:
+  id: village-05
+  world: 1
+  order: 5
+  prerequisites: [village-04]
+  estimatedMinutes: 10
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - formulaire
+    - état contrôlé
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Contrôler un champ
+
+Cette mission fait travailler **formulaire** et **état contrôlé** dans un petit composant exécutable.
+
+## Objectif
+
+Synchroniser le champ de nom et le message de bienvenue.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Synchroniser le champ de nom et le message de bienvenue. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-05"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion formulaire.',
+    'Synchroniser le champ de nom et le message de bienvenue.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

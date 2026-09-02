@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Décrire des props en union
+slug: decrire-props-union
+template: observatory-01
+focus: /src/App.tsx
+custom:
+  id: observatory-01
+  world: 4
+  order: 1
+  prerequisites: [citadel-09]
+  estimatedMinutes: 20
+  xp: 110
+  difficulty: avancé
+  concepts:
+    - union
+    - props
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Décrire des props en union
+
+Cette mission fait travailler **union** et **props** dans un petit composant exécutable.
+
+## Objectif
+
+Limiter le statut d’une mission à active ou complete et adapter son libellé.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Limiter le statut d’une mission à active ou complete et adapter son libellé. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="observatory-01"
+  xp={110}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion union.',
+    'Limiter le statut d’une mission à active ou complete et adapter son libellé.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

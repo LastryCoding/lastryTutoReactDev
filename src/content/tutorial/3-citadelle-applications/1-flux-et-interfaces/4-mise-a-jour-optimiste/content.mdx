@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Mettre à jour avec optimisme
+slug: mise-a-jour-optimiste
+template: citadel-04
+focus: /src/App.tsx
+custom:
+  id: citadel-04
+  world: 3
+  order: 4
+  prerequisites: [citadel-03]
+  estimatedMinutes: 15
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - mise à jour optimiste
+    - état
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Mettre à jour avec optimisme
+
+Cette mission fait travailler **mise à jour optimiste** et **état** dans un petit composant exécutable.
+
+## Objectif
+
+Marquer immédiatement une mission comme favorite au clic.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Marquer immédiatement une mission comme favorite au clic. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-04"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion mise à jour optimiste.',
+    'Marquer immédiatement une mission comme favorite au clic.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

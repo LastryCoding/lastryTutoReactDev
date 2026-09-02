@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Séparer logique et infrastructure
+slug: separer-logique-infrastructure
+template: portal-07
+focus: /src/App.tsx
+custom:
+  id: portal-07
+  world: 5
+  order: 7
+  prerequisites: [portal-06]
+  estimatedMinutes: 10
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - architecture
+    - injection
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Séparer logique et infrastructure
+
+Cette mission fait travailler **architecture** et **injection** dans un petit composant exécutable.
+
+## Objectif
+
+Confirmer une commande via un service injecté et afficher son résultat.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Confirmer une commande via un service injecté et afficher son résultat. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-07"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion architecture.',
+    'Confirmer une commande via un service injecté et afficher son résultat.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

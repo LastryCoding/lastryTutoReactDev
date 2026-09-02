@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Piloter un état avec reducer
+slug: piloter-etat-reducer
+template: village-08
+focus: /src/App.tsx
+custom:
+  id: village-08
+  world: 1
+  order: 8
+  prerequisites: [village-07]
+  estimatedMinutes: 10
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - useReducer
+    - immutabilité
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Piloter un état avec reducer
+
+Cette mission fait travailler **useReducer** et **immutabilité** dans un petit composant exécutable.
+
+## Objectif
+
+Gérer le gain d’énergie avec un reducer plutôt qu’une mutation.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Gérer le gain d’énergie avec un reducer plutôt qu’une mutation. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-08"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useReducer.',
+    'Gérer le gain d’énergie avec un reducer plutôt qu’une mutation.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

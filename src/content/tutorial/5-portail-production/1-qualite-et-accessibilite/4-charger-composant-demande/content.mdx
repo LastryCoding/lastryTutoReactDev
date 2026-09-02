@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Charger un composant à la demande
+slug: charger-composant-demande
+template: portal-04
+focus: /src/App.tsx
+custom:
+  id: portal-04
+  world: 5
+  order: 4
+  prerequisites: [portal-03]
+  estimatedMinutes: 10
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - lazy
+    - Suspense
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Charger un composant à la demande
+
+Cette mission fait travailler **lazy** et **Suspense** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher un fallback puis un panneau chargé avec `lazy` et `Suspense`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher un fallback puis un panneau chargé avec `lazy` et `Suspense`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-04"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion lazy.',
+    'Afficher un fallback puis un panneau chargé avec `lazy` et `Suspense`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

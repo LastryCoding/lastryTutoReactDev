@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Nettoyer un abonnement
+slug: nettoyer-un-abonnement
+template: forest-02
+focus: /src/App.tsx
+custom:
+  id: forest-02
+  world: 2
+  order: 2
+  prerequisites: [forest-01]
+  estimatedMinutes: 15
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - useEffect
+    - cleanup
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Nettoyer un abonnement
+
+Cette mission fait travailler **useEffect** et **cleanup** dans un petit composant exécutable.
+
+## Objectif
+
+Écouter `resize`, mettre à jour la largeur puis retirer l’écouteur au démontage.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Écouter `resize`, mettre à jour la largeur puis retirer l’écouteur au démontage. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-02"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useEffect.',
+    'Écouter `resize`, mettre à jour la largeur puis retirer l’écouteur au démontage.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

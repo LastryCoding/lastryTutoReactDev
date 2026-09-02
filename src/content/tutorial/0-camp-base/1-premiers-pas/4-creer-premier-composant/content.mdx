@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Créer un premier composant
+slug: creer-premier-composant
+template: camp-04
+focus: /src/App.tsx
+custom:
+  id: camp-04
+  world: 0
+  order: 4
+  prerequisites: [camp-03]
+  estimatedMinutes: 15
+  xp: 50
+  difficulty: initiation
+  concepts:
+    - composant
+    - props
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Créer un premier composant
+
+Cette mission fait travailler **composant** et **props** dans un petit composant exécutable.
+
+## Objectif
+
+Extraire un badge réutilisable et lui transmettre le libellé Explorateur.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Extraire un badge réutilisable et lui transmettre le libellé Explorateur. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="camp-04"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion composant.',
+    'Extraire un badge réutilisable et lui transmettre le libellé Explorateur.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

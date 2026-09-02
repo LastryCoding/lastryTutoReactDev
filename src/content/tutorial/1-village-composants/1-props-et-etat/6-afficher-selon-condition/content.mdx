@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Afficher selon une condition
+slug: afficher-selon-condition
+template: village-06
+focus: /src/App.tsx
+custom:
+  id: village-06
+  world: 1
+  order: 6
+  prerequisites: [village-05]
+  estimatedMinutes: 15
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - rendu conditionnel
+    - booléen
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Afficher selon une condition
+
+Cette mission fait travailler **rendu conditionnel** et **booléen** dans un petit composant exécutable.
+
+## Objectif
+
+Basculer entre les messages Porte fermée et Passage ouvert.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Basculer entre les messages Porte fermée et Passage ouvert. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-06"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion rendu conditionnel.',
+    'Basculer entre les messages Porte fermée et Passage ouvert.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

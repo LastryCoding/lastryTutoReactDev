@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : sélectionner un type générique'
+slug: bonus-selection-generique
+template: bonus-w4-01
+focus: /src/App.tsx
+custom:
+  id: bonus-w4-01
+  world: 4
+  order: 8
+  prerequisites: [observatory-07]
+  estimatedMinutes: 10
+  xp: 80
+  difficulty: avancé
+  concepts:
+    - hook générique
+    - TypeScript
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : sélectionner un type générique
+
+Cette mission fait travailler **hook générique** et **TypeScript** dans un petit composant exécutable.
+
+## Objectif
+
+Créer un hook générique qui conserve un élément sélectionné.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Créer un hook générique qui conserve un élément sélectionné. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w4-01"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion hook générique.',
+    'Créer un hook générique qui conserve un élément sélectionné.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

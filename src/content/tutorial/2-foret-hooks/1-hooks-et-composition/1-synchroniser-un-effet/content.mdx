@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Synchroniser un effet
+slug: synchroniser-un-effet
+template: forest-01
+focus: /src/App.tsx
+custom:
+  id: forest-01
+  world: 2
+  order: 1
+  prerequisites: [village-08]
+  estimatedMinutes: 10
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - useEffect
+    - DOM
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Synchroniser un effet
+
+Cette mission fait travailler **useEffect** et **DOM** dans un petit composant exécutable.
+
+## Objectif
+
+Synchroniser le titre du document avec le nom de zone saisi.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Synchroniser le titre du document avec le nom de zone saisi. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-01"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useEffect.',
+    'Synchroniser le titre du document avec le nom de zone saisi.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

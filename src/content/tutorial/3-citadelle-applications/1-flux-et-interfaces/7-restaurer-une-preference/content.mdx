@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Restaurer une préférence
+slug: restaurer-une-preference
+template: citadel-07
+focus: /src/App.tsx
+custom:
+  id: citadel-07
+  world: 3
+  order: 7
+  prerequisites: [citadel-06]
+  estimatedMinutes: 15
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - localStorage
+    - initialisation paresseuse
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Restaurer une préférence
+
+Cette mission fait travailler **localStorage** et **initialisation paresseuse** dans un petit composant exécutable.
+
+## Objectif
+
+Initialiser la zone depuis `localStorage` et sauvegarder chaque changement.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Initialiser la zone depuis `localStorage` et sauvegarder chaque changement. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-07"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion localStorage.',
+    'Initialiser la zone depuis `localStorage` et sauvegarder chaque changement.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

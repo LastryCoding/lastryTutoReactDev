@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : structurer une navigation'
+slug: bonus-navigation-semantique
+template: bonus-w0-01
+focus: /src/App.tsx
+custom:
+  id: bonus-w0-01
+  world: 0
+  order: 5
+  prerequisites: [camp-04]
+  estimatedMinutes: 20
+  xp: 40
+  difficulty: initiation
+  concepts:
+    - HTML sémantique
+    - accessibilité
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : structurer une navigation
+
+Cette mission fait travailler **HTML sémantique** et **accessibilité** dans un petit composant exécutable.
+
+## Objectif
+
+Créer une navigation nommée contenant les trois lieux du camp.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Créer une navigation nommée contenant les trois lieux du camp. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w0-01"
+  xp={40}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion HTML sémantique.',
+    'Créer une navigation nommée contenant les trois lieux du camp.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

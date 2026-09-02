@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Injecter un service
+slug: injecter-un-service
+template: citadel-09
+focus: /src/App.tsx
+custom:
+  id: citadel-09
+  world: 3
+  order: 9
+  prerequisites: [citadel-08]
+  estimatedMinutes: 10
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - injection de dépendance
+    - effet
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Injecter un service
+
+Cette mission fait travailler **injection de dépendance** et **effet** dans un petit composant exécutable.
+
+## Objectif
+
+Charger le rang depuis une fonction injectée plutôt que depuis le composant.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Charger le rang depuis une fonction injectée plutôt que depuis le composant. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-09"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion injection de dépendance.',
+    'Charger le rang depuis une fonction injectée plutôt que depuis le composant.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

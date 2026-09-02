@@ -107,7 +107,21 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - E2E verifie edition, preview, echec du starter, autosauvegarde, rechargement,
   restauration, formatage, execution, validation et attribution de 50 XP.
 
+### 2026-09-02 - RQ-06 a RQ-12 Parcours complet
+
+- 44 missions principales reparties par monde selon `4 / 8 / 8 / 9 / 7 / 8` ;
+- 8 missions bonus livrees sans bloquer le parcours principal ;
+- chaque lecon possede ses metadonnees, son starter, sa solution et un template
+  de validation comportementale dedie ;
+- graphe des prerequis, ordres, durees, XP et versions controles globalement ;
+- `pnpm format:check` : succes ;
+- `pnpm lint` : succes ;
+- `pnpm test` : 5 tests passes dans 2 fichiers ;
+- `pnpm validate:content` : 52 lecons valides, dont 44 principales et 8 bonus ;
+- `pnpm validate:exercises` : 52 starters types en echec comportemental et 52
+  solutions typees, lintees et valides.
+
 ## Prochaine porte
 
 Completer RQ-03 avec import/export, reinitialisation totale, gestion utilisateur
-de l'etat corrompu et couverture des preferences.
+de l'etat corrompu et couverture des preferences, puis construire le dashboard.

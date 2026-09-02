@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Garantir un switch exhaustif
+slug: garantir-switch-exhaustif
+template: observatory-07
+focus: /src/App.tsx
+custom:
+  id: observatory-07
+  world: 4
+  order: 7
+  prerequisites: [observatory-06]
+  estimatedMinutes: 20
+  xp: 110
+  difficulty: avancé
+  concepts:
+    - never
+    - exhaustivité
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Garantir un switch exhaustif
+
+Cette mission fait travailler **never** et **exhaustivité** dans un petit composant exécutable.
+
+## Objectif
+
+Couvrir chaque direction et signaler toute valeur impossible avec `never`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Couvrir chaque direction et signaler toute valeur impossible avec `never`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="observatory-07"
+  xp={110}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion never.',
+    'Couvrir chaque direction et signaler toute valeur impossible avec `never`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

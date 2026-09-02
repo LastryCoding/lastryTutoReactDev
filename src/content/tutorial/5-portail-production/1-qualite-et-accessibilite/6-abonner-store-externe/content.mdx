@@ -1,0 +1,52 @@
+---
+type: lesson
+title: S’abonner à un store externe
+slug: abonner-store-externe
+template: portal-06
+focus: /src/App.tsx
+custom:
+  id: portal-06
+  world: 5
+  order: 6
+  prerequisites: [portal-05]
+  estimatedMinutes: 20
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - useSyncExternalStore
+    - store
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# S’abonner à un store externe
+
+Cette mission fait travailler **useSyncExternalStore** et **store** dans un petit composant exécutable.
+
+## Objectif
+
+Lire un compteur externe de façon cohérente avec `useSyncExternalStore`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Lire un compteur externe de façon cohérente avec `useSyncExternalStore`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-06"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useSyncExternalStore.',
+    'Lire un compteur externe de façon cohérente avec `useSyncExternalStore`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

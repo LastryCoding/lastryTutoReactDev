@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Mettre à jour un état
+slug: mettre-a-jour-etat
+template: village-04
+focus: /src/App.tsx
+custom:
+  id: village-04
+  world: 1
+  order: 4
+  prerequisites: [village-03]
+  estimatedMinutes: 20
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - useState
+    - événement
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Mettre à jour un état
+
+Cette mission fait travailler **useState** et **événement** dans un petit composant exécutable.
+
+## Objectif
+
+Augmenter le compteur de cristaux à chaque clic.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Augmenter le compteur de cristaux à chaque clic. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-04"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useState.',
+    'Augmenter le compteur de cristaux à chaque clic.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

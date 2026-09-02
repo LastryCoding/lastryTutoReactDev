@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Prioriser une mise à jour
+slug: prioriser-mise-a-jour
+template: portal-05
+focus: /src/App.tsx
+custom:
+  id: portal-05
+  world: 5
+  order: 5
+  prerequisites: [portal-04]
+  estimatedMinutes: 15
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - useTransition
+    - performance
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Prioriser une mise à jour
+
+Cette mission fait travailler **useTransition** et **performance** dans un petit composant exécutable.
+
+## Objectif
+
+Mettre à jour le champ immédiatement et filtrer la liste dans une transition.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Mettre à jour le champ immédiatement et filtrer la liste dans une transition. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-05"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useTransition.',
+    'Mettre à jour le champ immédiatement et filtrer la liste dans une transition.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Configurer des attributs JSX
+slug: configurer-attributs-jsx
+template: camp-03
+focus: /src/App.tsx
+custom:
+  id: camp-03
+  world: 0
+  order: 3
+  prerequisites: [camp-02]
+  estimatedMinutes: 10
+  xp: 50
+  difficulty: initiation
+  concepts:
+    - JSX
+    - attributs
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Configurer des attributs JSX
+
+Cette mission fait travailler **JSX** et **attributs** dans un petit composant exécutable.
+
+## Objectif
+
+Rendre le bouton de carte identifiable et stylable avec `className` et `aria-label`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Rendre le bouton de carte identifiable et stylable avec `className` et `aria-label`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="camp-03"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion JSX.',
+    'Rendre le bouton de carte identifiable et stylable avec `className` et `aria-label`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

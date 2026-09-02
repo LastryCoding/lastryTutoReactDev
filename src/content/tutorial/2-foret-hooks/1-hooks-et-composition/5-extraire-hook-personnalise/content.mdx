@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Extraire un hook personnalisé
+slug: extraire-hook-personnalise
+template: forest-05
+focus: /src/App.tsx
+custom:
+  id: forest-05
+  world: 2
+  order: 5
+  prerequisites: [forest-04]
+  estimatedMinutes: 15
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - hook personnalisé
+    - useState
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Extraire un hook personnalisé
+
+Cette mission fait travailler **hook personnalisé** et **useState** dans un petit composant exécutable.
+
+## Objectif
+
+Implémenter `useToggle` pour partager une logique booléenne.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Implémenter `useToggle` pour partager une logique booléenne. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-05"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion hook personnalisé.',
+    'Implémenter `useToggle` pour partager une logique booléenne.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

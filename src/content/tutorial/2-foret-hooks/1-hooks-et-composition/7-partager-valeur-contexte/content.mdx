@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Partager une valeur par contexte
+slug: partager-valeur-contexte
+template: forest-07
+focus: /src/App.tsx
+custom:
+  id: forest-07
+  world: 2
+  order: 7
+  prerequisites: [forest-06]
+  estimatedMinutes: 10
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - Context
+    - Provider
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Partager une valeur par contexte
+
+Cette mission fait travailler **Context** et **Provider** dans un petit composant exécutable.
+
+## Objectif
+
+Fournir le thème night à un composant profondément imbriqué.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Fournir le thème night à un composant profondément imbriqué. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-07"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion Context.',
+    'Fournir le thème night à un composant profondément imbriqué.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

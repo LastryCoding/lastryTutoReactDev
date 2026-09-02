@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : annuler une action'
+slug: bonus-annuler-action
+template: bonus-w5-01
+focus: /src/App.tsx
+custom:
+  id: bonus-w5-01
+  world: 5
+  order: 9
+  prerequisites: [portal-08]
+  estimatedMinutes: 20
+  xp: 90
+  difficulty: avancé
+  concepts:
+    - undo
+    - useReducer
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : annuler une action
+
+Cette mission fait travailler **undo** et **useReducer** dans un petit composant exécutable.
+
+## Objectif
+
+Conserver l’état précédent dans un reducer afin d’annuler le dernier gain.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Conserver l’état précédent dans un reducer afin d’annuler le dernier gain. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w5-01"
+  xp={90}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion undo.',
+    'Conserver l’état précédent dans un reducer afin d’annuler le dernier gain.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Modéliser une machine à états
+slug: modeliser-machine-etats
+template: citadel-06
+focus: /src/App.tsx
+custom:
+  id: citadel-06
+  world: 3
+  order: 6
+  prerequisites: [citadel-05]
+  estimatedMinutes: 10
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - useReducer
+    - machine à états
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Modéliser une machine à états
+
+Cette mission fait travailler **useReducer** et **machine à états** dans un petit composant exécutable.
+
+## Objectif
+
+Faire évoluer une requête de idle à loading puis success avec un reducer.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Faire évoluer une requête de idle à loading puis success avec un reducer. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-06"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useReducer.',
+    'Faire évoluer une requête de idle à loading puis success avec un reducer.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

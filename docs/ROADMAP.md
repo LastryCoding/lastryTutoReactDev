@@ -13,13 +13,13 @@ ne passe a `Termine` qu'apres code, verification, documentation et commit.
 | RQ-03 | Domaine et stockage local         | A faire          | Store, migrations, import/export et corruption testes                    |
 | RQ-04 | Dashboard et progression          | A faire          | Carte, XP, badges, acquis, sprint et deblocage fonctionnels              |
 | RQ-05 | IDE React Quest                   | A faire          | Actions, panneaux, diagnostics, raccourcis et compatibilite fonctionnels |
-| RQ-06 | Monde 0                           | A faire          | 4 starters, solutions et validations vertes                              |
-| RQ-07 | Monde 1                           | A faire          | 8 starters, solutions et validations vertes                              |
-| RQ-08 | Monde 2                           | A faire          | 8 starters, solutions et validations vertes                              |
-| RQ-09 | Monde 3                           | A faire          | 9 starters, solutions et validations vertes                              |
-| RQ-10 | Monde 4                           | A faire          | 7 starters, solutions et validations vertes                              |
-| RQ-11 | Monde 5                           | A faire          | Job Tracker en 8 niveaux et validation finale verte                      |
-| RQ-12 | Monde bonus                       | A faire          | Exercices bonus livres sans bloquer le parcours principal                |
+| RQ-06 | Monde 0                           | Termine          | 4 starters, solutions et validations vertes                              |
+| RQ-07 | Monde 1                           | Termine          | 8 starters, solutions et validations vertes                              |
+| RQ-08 | Monde 2                           | Termine          | 8 starters, solutions et validations vertes                              |
+| RQ-09 | Monde 3                           | Termine          | 9 starters, solutions et validations vertes                              |
+| RQ-10 | Monde 4                           | Termine          | 7 starters, solutions et validations vertes                              |
+| RQ-11 | Monde 5                           | Termine          | Job Tracker en 8 niveaux et validation finale verte                      |
+| RQ-12 | Monde bonus                       | Termine          | Exercices bonus livres sans bloquer le parcours principal                |
 | RQ-13 | Qualite transversale              | A faire          | A11y, responsive, unitaires, composants et Playwright verts              |
 | RQ-14 | Documentation finale              | A faire          | Guides exercice, architecture, confidentialite et captures a jour        |
 | RQ-15 | CI et livraison statique          | A faire          | Workflow, Docker, Compose et exemples de deploiement valides             |
@@ -48,3 +48,4 @@ metadonnees, le contenu, les tests et le suivi dans le meme commit fonctionnel.
 - 2026-09-01 : RQ-00 termine, six documents fondateurs crees et relus.
 - 2026-09-02 : RQ-01 termine, socle TutorialKit compile et servi localement.
 - 2026-09-02 : RQ-02 termine, tranche verticale validee de bout en bout sur Edge.
+- 2026-09-02 : RQ-06 a RQ-12 termines, 44 missions et 8 bonus valides.

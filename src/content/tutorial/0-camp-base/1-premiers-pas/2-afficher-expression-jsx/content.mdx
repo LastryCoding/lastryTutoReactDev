@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Afficher une expression JSX
+slug: afficher-expression-jsx
+template: camp-02
+focus: /src/App.tsx
+custom:
+  id: camp-02
+  world: 0
+  order: 2
+  prerequisites: [camp-01]
+  estimatedMinutes: 20
+  xp: 50
+  difficulty: initiation
+  concepts:
+    - JSX
+    - expression
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Afficher une expression JSX
+
+Cette mission fait travailler **JSX** et **expression** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher le nom Ada dans le titre à partir de la constante `hero`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher le nom Ada dans le titre à partir de la constante `hero`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="camp-02"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion JSX.',
+    'Afficher le nom Ada dans le titre à partir de la constante `hero`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

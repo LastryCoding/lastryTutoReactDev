@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Fermer une boîte de dialogue
+slug: fermer-boite-dialogue
+template: portal-02
+focus: /src/App.tsx
+custom:
+  id: portal-02
+  world: 5
+  order: 2
+  prerequisites: [portal-01]
+  estimatedMinutes: 15
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - dialog
+    - clavier
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Fermer une boîte de dialogue
+
+Cette mission fait travailler **dialog** et **clavier** dans un petit composant exécutable.
+
+## Objectif
+
+Fermer une boîte de dialogue accessible avec la touche Échap.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Fermer une boîte de dialogue accessible avec la touche Échap. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-02"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion dialog.',
+    'Fermer une boîte de dialogue accessible avec la touche Échap.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

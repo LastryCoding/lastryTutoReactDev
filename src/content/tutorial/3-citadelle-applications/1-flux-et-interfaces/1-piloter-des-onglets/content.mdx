@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Piloter des onglets
+slug: piloter-des-onglets
+template: citadel-01
+focus: /src/App.tsx
+custom:
+  id: citadel-01
+  world: 3
+  order: 1
+  prerequisites: [forest-08]
+  estimatedMinutes: 15
+  xp: 95
+  difficulty: intermédiaire
+  concepts:
+    - état UI
+    - événements
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Piloter des onglets
+
+Cette mission fait travailler **état UI** et **événements** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher le panneau correspondant à l’onglet sélectionné.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher le panneau correspondant à l’onglet sélectionné. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="citadel-01"
+  xp={95}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion état UI.',
+    'Afficher le panneau correspondant à l’onglet sélectionné.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

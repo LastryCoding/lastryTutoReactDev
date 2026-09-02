@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Rendre une liste avec map
+slug: rendre-liste-map
+template: village-03
+focus: /src/App.tsx
+custom:
+  id: village-03
+  world: 1
+  order: 3
+  prerequisites: [village-02]
+  estimatedMinutes: 15
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - listes
+    - key
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Rendre une liste avec map
+
+Cette mission fait travailler **listes** et **key** dans un petit composant exécutable.
+
+## Objectif
+
+Rendre les trois quêtes sous forme de liste avec une clé stable.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Rendre les trois quêtes sous forme de liste avec une clé stable. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-03"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion listes.',
+    'Rendre les trois quêtes sous forme de liste avec une clé stable.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

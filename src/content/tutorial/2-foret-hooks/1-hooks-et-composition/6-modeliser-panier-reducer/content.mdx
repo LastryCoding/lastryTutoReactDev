@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Modéliser un panier avec reducer
+slug: modeliser-panier-reducer
+template: forest-06
+focus: /src/App.tsx
+custom:
+  id: forest-06
+  world: 2
+  order: 6
+  prerequisites: [forest-05]
+  estimatedMinutes: 20
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - useReducer
+    - actions
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Modéliser un panier avec reducer
+
+Cette mission fait travailler **useReducer** et **actions** dans un petit composant exécutable.
+
+## Objectif
+
+Ajouter des potions au panier via une action typée.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Ajouter des potions au panier via une action typée. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-06"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useReducer.',
+    'Ajouter des potions au panier via une action typée.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

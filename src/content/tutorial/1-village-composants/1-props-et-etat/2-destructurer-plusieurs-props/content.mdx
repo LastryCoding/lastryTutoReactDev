@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Déstructurer plusieurs props
+slug: destructurer-plusieurs-props
+template: village-02
+focus: /src/App.tsx
+custom:
+  id: village-02
+  world: 1
+  order: 2
+  prerequisites: [village-01]
+  estimatedMinutes: 10
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - props
+    - déstructuration
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Déstructurer plusieurs props
+
+Cette mission fait travailler **props** et **déstructuration** dans un petit composant exécutable.
+
+## Objectif
+
+Afficher le nom et le rôle reçus par une carte de profil typée.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Afficher le nom et le rôle reçus par une carte de profil typée. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-02"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion props.',
+    'Afficher le nom et le rôle reçus par une carte de profil typée.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

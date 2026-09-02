@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Assembler un tableau de missions
+slug: assembler-tableau-missions
+template: portal-08
+focus: /src/App.tsx
+custom:
+  id: portal-08
+  world: 5
+  order: 8
+  prerequisites: [portal-07]
+  estimatedMinutes: 15
+  xp: 125
+  difficulty: avancé
+  concepts:
+    - état complexe
+    - formulaire
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Assembler un tableau de missions
+
+Cette mission fait travailler **état complexe** et **formulaire** dans un petit composant exécutable.
+
+## Objectif
+
+Ajouter une mission puis la marquer comme terminée dans une mini-application.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Ajouter une mission puis la marquer comme terminée dans une mini-application. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="portal-08"
+  xp={125}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion état complexe.',
+    'Ajouter une mission puis la marquer comme terminée dans une mini-application.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

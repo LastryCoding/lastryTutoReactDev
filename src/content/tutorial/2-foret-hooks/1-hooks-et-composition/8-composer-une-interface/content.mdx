@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Composer une interface
+slug: composer-une-interface
+template: forest-08
+focus: /src/App.tsx
+custom:
+  id: forest-08
+  world: 2
+  order: 8
+  prerequisites: [forest-07]
+  estimatedMinutes: 15
+  xp: 80
+  difficulty: intermédiaire
+  concepts:
+    - composition
+    - ReactNode
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Composer une interface
+
+Cette mission fait travailler **composition** et **ReactNode** dans un petit composant exécutable.
+
+## Objectif
+
+Construire un panneau générique avec un titre et du contenu enfant.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Construire un panneau générique avec un titre et du contenu enfant. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="forest-08"
+  xp={80}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion composition.',
+    'Construire un panneau générique avec un titre et du contenu enfant.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

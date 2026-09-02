@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : ajouter sans muter'
+slug: bonus-ajouter-sans-muter
+template: bonus-w1-02
+focus: /src/App.tsx
+custom:
+  id: bonus-w1-02
+  world: 1
+  order: 10
+  prerequisites: [village-08]
+  estimatedMinutes: 20
+  xp: 50
+  difficulty: initiation
+  concepts:
+    - immutabilité
+    - tableaux
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : ajouter sans muter
+
+Cette mission fait travailler **immutabilité** et **tableaux** dans un petit composant exécutable.
+
+## Objectif
+
+Ajouter une potion à une liste d’état sans modifier le tableau existant.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Ajouter une potion à une liste d’état sans modifier le tableau existant. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w1-02"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion immutabilité.',
+    'Ajouter une potion à une liste d’état sans modifier le tableau existant.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

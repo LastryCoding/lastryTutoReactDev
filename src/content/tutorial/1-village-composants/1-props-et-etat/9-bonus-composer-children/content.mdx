@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : composer avec children'
+slug: bonus-composer-children
+template: bonus-w1-01
+focus: /src/App.tsx
+custom:
+  id: bonus-w1-01
+  world: 1
+  order: 9
+  prerequisites: [village-08]
+  estimatedMinutes: 15
+  xp: 50
+  difficulty: initiation
+  concepts:
+    - children
+    - composition
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : composer avec children
+
+Cette mission fait travailler **children** et **composition** dans un petit composant exécutable.
+
+## Objectif
+
+Créer une carte qui affiche le contenu JSX reçu dans `children`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Créer une carte qui affiche le contenu JSX reçu dans `children`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w1-01"
+  xp={50}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion children.',
+    'Créer une carte qui affiche le contenu JSX reçu dans `children`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

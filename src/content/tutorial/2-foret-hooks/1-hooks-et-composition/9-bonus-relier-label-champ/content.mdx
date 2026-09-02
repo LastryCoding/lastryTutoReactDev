@@ -1,0 +1,52 @@
+---
+type: lesson
+title: 'Bonus : relier label et champ'
+slug: bonus-relier-label-champ
+template: bonus-w2-01
+focus: /src/App.tsx
+custom:
+  id: bonus-w2-01
+  world: 2
+  order: 9
+  prerequisites: [forest-08]
+  estimatedMinutes: 20
+  xp: 60
+  difficulty: intermédiaire
+  concepts:
+    - useId
+    - accessibilité
+  contentVersion: 1
+  bonus: true
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Bonus : relier label et champ
+
+Cette mission fait travailler **useId** et **accessibilité** dans un petit composant exécutable.
+
+## Objectif
+
+Générer un identifiant stable avec `useId` pour relier un label et son champ.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Générer un identifiant stable avec `useId` pour relier un label et son champ. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="bonus-w2-01"
+  xp={60}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion useId.',
+    'Générer un identifiant stable avec `useId` pour relier un label et son champ.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

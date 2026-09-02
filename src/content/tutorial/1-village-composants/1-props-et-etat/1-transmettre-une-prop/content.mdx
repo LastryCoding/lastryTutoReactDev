@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Transmettre une prop
+slug: transmettre-une-prop
+template: village-01
+focus: /src/App.tsx
+custom:
+  id: village-01
+  world: 1
+  order: 1
+  prerequisites: [camp-04]
+  estimatedMinutes: 20
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - props
+    - TypeScript
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Transmettre une prop
+
+Cette mission fait travailler **props** et **TypeScript** dans un petit composant exécutable.
+
+## Objectif
+
+Faire saluer Lina par le composant `Greeting` grâce à sa prop `name`.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Faire saluer Lina par le composant `Greeting` grâce à sa prop `name`. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-01"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion props.',
+    'Faire saluer Lina par le composant `Greeting` grâce à sa prop `name`.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

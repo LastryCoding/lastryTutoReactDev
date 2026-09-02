@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Typer un événement de formulaire
+slug: typer-evenement-formulaire
+template: observatory-06
+focus: /src/App.tsx
+custom:
+  id: observatory-06
+  world: 4
+  order: 6
+  prerequisites: [observatory-05]
+  estimatedMinutes: 15
+  xp: 110
+  difficulty: avancé
+  concepts:
+    - ChangeEvent
+    - formulaire
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Typer un événement de formulaire
+
+Cette mission fait travailler **ChangeEvent** et **formulaire** dans un petit composant exécutable.
+
+## Objectif
+
+Lire la valeur d’un select typé et afficher le rôle choisi.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Lire la valeur d’un select typé et afficher le rôle choisi. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="observatory-06"
+  xp={110}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion ChangeEvent.',
+    'Lire la valeur d’un select typé et afficher le rôle choisi.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>

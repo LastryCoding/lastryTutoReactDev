@@ -1,0 +1,52 @@
+---
+type: lesson
+title: Remonter un état
+slug: remonter-un-etat
+template: village-07
+focus: /src/App.tsx
+custom:
+  id: village-07
+  world: 1
+  order: 7
+  prerequisites: [village-06]
+  estimatedMinutes: 20
+  xp: 65
+  difficulty: initiation
+  concepts:
+    - lifting state up
+    - callback
+  contentVersion: 1
+  bonus: false
+---
+
+import ExerciseActions from '@/components/ExerciseActions';
+
+# Remonter un état
+
+Cette mission fait travailler **lifting state up** et **callback** dans un petit composant exécutable.
+
+## Objectif
+
+Permettre au parent de mémoriser la monture choisie par un enfant.
+
+## Étapes
+
+1. Ouvrez `src/App.tsx` et repérez le commentaire `TODO`.
+2. Complétez la logique indiquée sans modifier le contrat public du composant.
+3. Exécutez l'application, puis lancez la vérification comportementale.
+
+## Résultat attendu
+
+Permettre au parent de mémoriser la monture choisie par un enfant. La vérification doit réussir après une interaction réelle avec l'interface lorsqu'elle est nécessaire.
+
+<ExerciseActions
+  client:load
+  exerciseId="village-07"
+  xp={65}
+  contentVersion={1}
+  hints={[
+    'Commencez par le commentaire TODO : il cible uniquement la notion lifting state up.',
+    'Permettre au parent de mémoriser la monture choisie par un enfant.',
+    'Comparez l’état ou le DOM avant et après l’action attendue, puis vérifiez les props et gestionnaires concernés.',
+  ]}
+/>
