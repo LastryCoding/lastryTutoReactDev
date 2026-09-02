@@ -66,21 +66,107 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: quality
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    env:
+      PUBLIC_VPS_IP: 62.169.27.147
+      TAILNET_VPS_IP: 100.75.120.75
+      KOMODO_ADDRESS: https://komodo.lastry.fr
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: reactquest-production
+      cancel-in-progress: false
     steps:
-      - name: Trigger Komodo deployment
-        env:
-          KOMODO_WEBHOOK_SECRET: ${{ secrets.KOMODO_WEBHOOK_SECRET }}
-          KOMODO_WEBHOOK_URL: https://komodo.lastry.fr/listener/github/stack/6a9791160ecc397f8d835494/deploy
+      - name: Verify public access is denied
         run: |
-          signature="$(
-            openssl dgst -sha256 -hmac "$KOMODO_WEBHOOK_SECRET" "$GITHUB_EVENT_PATH" |
-              cut -d ' ' -f 2
-          )"
+          set -euo pipefail
 
-          curl --fail-with-body --retry 3 \
+          status="$(curl --silent --show-error --output /dev/null \
+            --write-out '%{http_code}' \
+            --resolve "komodo.lastry.fr:443:${PUBLIC_VPS_IP}" \
+            https://komodo.lastry.fr/)"
+
+          if [[ "${status}" != '404' ]]; then
+            echo "Expected Komodo to return 404 publicly, got ${status}." >&2
+            exit 1
+          fi
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@780049a30b6ff5c378a9e7b389d15ece7a204888 # v4.1.3
+        with:
+          oauth-client-id: ${{ vars.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ vars.TS_AUDIENCE }}
+          tags: tag:ci
+
+      - name: Verify Tailnet route
+        run: tailscale ping --c 3 --timeout 10s "${TAILNET_VPS_IP}"
+
+      - name: Deploy with Komodo
+        env:
+          KOMODO_API_KEY: ${{ secrets.KOMODO_API_KEY }}
+          KOMODO_API_SECRET: ${{ secrets.KOMODO_API_SECRET }}
+        run: |
+          set -euo pipefail
+
+          komodo_host="${KOMODO_ADDRESS#https://}"
+          update="$(curl --fail-with-body --silent --show-error \
+            --resolve "${komodo_host}:443:${TAILNET_VPS_IP}" \
             --header 'Content-Type: application/json' \
-            --header 'X-GitHub-Event: push' \
-            --header "X-Hub-Signature-256: sha256=$signature" \
-            --data-binary "@$GITHUB_EVENT_PATH" \
-            "$KOMODO_WEBHOOK_URL"
+            --header "X-API-KEY: ${KOMODO_API_KEY}" \
+            --header "X-API-SECRET: ${KOMODO_API_SECRET}" \
+            --data '{"type":"DeployStack","params":{"stack":"reactquest"}}' \
+            "${KOMODO_ADDRESS}/execute")"
+          update_id="$(jq --exit-status --raw-output '._id."$oid"' <<<"${update}")"
+
+          completed=false
+          for attempt in {1..120}; do
+            update="$(curl --fail-with-body --silent --show-error \
+              --retry 3 --retry-all-errors --retry-delay 2 \
+              --resolve "${komodo_host}:443:${TAILNET_VPS_IP}" \
+              --header 'Content-Type: application/json' \
+              --header "X-API-KEY: ${KOMODO_API_KEY}" \
+              --header "X-API-SECRET: ${KOMODO_API_SECRET}" \
+              --data "$(jq --compact-output --null-input --arg id "${update_id}" \
+                '{type:"GetUpdate",params:{id:$id}}')" \
+              "${KOMODO_ADDRESS}/read")"
+
+            if [[ "$(jq --raw-output '.status' <<<"${update}")" == 'Complete' ]]; then
+              completed=true
+              break
+            fi
+
+            sleep 5
+          done
+
+          if [[ "${completed}" != 'true' ]]; then
+            echo 'Komodo deployment timed out.' >&2
+            exit 1
+          fi
+
+          if [[ "$(jq --raw-output '.success' <<<"${update}")" != 'true' ]]; then
+            jq --raw-output \
+              '.logs[]? | select(.success == false) | "\(.stage):\n\(.stderr)"' \
+              <<<"${update}" >&2
+            exit 1
+          fi
+
+          stack="$(curl --fail-with-body --silent --show-error \
+            --resolve "${komodo_host}:443:${TAILNET_VPS_IP}" \
+            --header 'Content-Type: application/json' \
+            --header "X-API-KEY: ${KOMODO_API_KEY}" \
+            --header "X-API-SECRET: ${KOMODO_API_SECRET}" \
+            --data '{"type":"GetStack","params":{"stack":"reactquest"}}' \
+            "${KOMODO_ADDRESS}/read")"
+          deployed_hash="$(jq --exit-status --raw-output '.info.deployed_hash' <<<"${stack}")"
+
+          if [[ "${GITHUB_SHA}" != "${deployed_hash}"* ]]; then
+            echo "Expected ${GITHUB_SHA}, but Komodo deployed ${deployed_hash}." >&2
+            exit 1
+          fi
+
+      - name: Verify application health
+        run: |
+          curl --fail-with-body --silent --show-error \
+            --retry 12 --retry-all-errors --retry-delay 5 \
+            https://reactquest.lastry.fr/healthz >/dev/null
