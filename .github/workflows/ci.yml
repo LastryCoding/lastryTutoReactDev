@@ -70,7 +70,7 @@ jobs:
     env:
       PUBLIC_VPS_IP: 62.169.27.147
       TAILNET_VPS_IP: 100.75.120.75
-      KOMODO_ADDRESS: https://komodo.lastry.fr
+      KOMODO_ADDRESS: ${{ vars.KOMODO_ADDRESS }}
     permissions:
       contents: read
       id-token: write
