@@ -19,17 +19,26 @@ de longs cours theoriques.
 
 Le parcours principal compte 44 exercices de 10 a 20 minutes :
 
-| Monde | Theme                       | Exercices |
-| ----- | --------------------------- | --------: |
-| 0     | Le Camp de base             |         4 |
-| 1     | Les Fondations TypeScript   |         8 |
-| 2     | La Forge des composants     |         8 |
-| 3     | Le Temple du state          |         9 |
-| 4     | La Riviere des effets       |         7 |
-| 5     | Le Boss final : Job Tracker |         8 |
+| Monde | Theme                         | Exercices |
+| ----- | ----------------------------- | --------: |
+| 0     | Le Camp de base               |         4 |
+| 1     | Le Village des composants     |         8 |
+| 2     | La Foret des hooks            |         8 |
+| 3     | La Citadelle des applications |         9 |
+| 4     | L'Observatoire TypeScript     |         7 |
+| 5     | Le Portail de production      |         8 |
 
 Huit exercices bonus Junior++ completent ces mondes sans bloquer la fin du
 parcours principal.
+
+## Apercu
+
+![Dashboard React Quest sur ordinateur](docs/images/dashboard-desktop.png)
+
+Le dashboard, la carte des mondes, les acquis et la gestion des donnees restent
+disponibles sur mobile :
+
+<img src="docs/images/dashboard-mobile.png" alt="Dashboard React Quest sur mobile" width="390">
 
 ## Principes produit
 

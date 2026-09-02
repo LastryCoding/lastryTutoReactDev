@@ -31,7 +31,7 @@ test('le premier exercice restaure le code et attribue les XP', async ({
   await page.getByRole('button', { name: 'Verifier', exact: true }).click();
   await expect(
     page.getByText(
-      "Le composant fonctionne, mais le titre exact n'est pas encore affiche.",
+      "Le comportement attendu n'est pas encore obtenu. Relisez l'objectif et reproduisez l'interaction demandee.",
     ),
   ).toBeVisible({ timeout: 120_000 });
 
@@ -81,6 +81,17 @@ test('le premier exercice restaure le code et attribue les XP', async ({
   expect(stored.xp).toBe(50);
   expect(stored.completedExercises).toEqual(['camp-01']);
   expect(stored.exerciseProgress['camp-01'].attempts).toBe(2);
+
+  await page.goto('/');
+  await expect(page.getByText('1/44 missions')).toBeVisible();
+  await expect(page.getByText('50 XP', { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('link', {
+      name: 'Afficher une expression JSX',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.getByText('Premier pas', { exact: true })).toBeVisible();
 });
 
 async function startWorkshopIfNeeded(

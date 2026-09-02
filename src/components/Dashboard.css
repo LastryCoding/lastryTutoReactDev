@@ -1,0 +1,441 @@
+:root {
+  --quest-ink: #102820;
+  --quest-paper: #f0ead8;
+  --quest-paper-light: #faf7ed;
+  --quest-moss: #315c49;
+  --quest-gold: #d38d32;
+  --quest-rust: #9b4836;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--quest-paper);
+}
+
+.quest-dashboard {
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(16, 40, 32, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 40, 32, 0.035) 1px, transparent 1px),
+    var(--quest-paper);
+  background-size: 28px 28px;
+  color: var(--quest-ink);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.quest-dashboard--loading {
+  display: grid;
+  place-items: center;
+}
+
+.quest-dashboard__hero {
+  position: relative;
+  padding: 1.25rem max(1.25rem, calc((100vw - 76rem) / 2));
+  background: var(--quest-ink);
+  color: var(--quest-paper-light);
+}
+
+.quest-dashboard__hero::after {
+  position: absolute;
+  right: -7rem;
+  bottom: -12rem;
+  width: 32rem;
+  height: 32rem;
+  border: 1px solid rgba(240, 234, 216, 0.15);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 3rem rgba(240, 234, 216, 0.035),
+    0 0 0 7rem rgba(240, 234, 216, 0.025);
+  content: '';
+}
+
+.quest-dashboard nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(240, 234, 216, 0.2);
+  padding-bottom: 1rem;
+}
+
+.quest-dashboard nav a {
+  color: inherit;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.quest-dashboard nav a:hover,
+.quest-dashboard nav a:focus-visible {
+  color: #f3bd62;
+}
+
+.quest-dashboard__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-right: auto;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.quest-dashboard__brand span {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: #f3bd62;
+  font-family: Georgia, serif;
+}
+
+.quest-dashboard__hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(17rem, 0.8fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: center;
+  min-height: 36rem;
+  padding: 3rem 0;
+}
+
+.quest-dashboard__eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--quest-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.quest-dashboard h1,
+.quest-dashboard h2,
+.quest-dashboard h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.quest-dashboard h1 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.8rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.quest-dashboard__intro {
+  max-width: 42rem;
+  margin: 2rem 0;
+  color: #c8d3ca;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.quest-dashboard__cta {
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid #f3bd62;
+  background: #f3bd62;
+  color: var(--quest-ink);
+  padding: 0.85rem 1.2rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.quest-dashboard__cta span {
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.quest-dashboard__complete {
+  border-left: 3px solid var(--quest-gold);
+  padding-left: 1rem;
+}
+
+.quest-dashboard__compass {
+  display: grid;
+  aspect-ratio: 1;
+  place-content: center;
+  border: 1px solid rgba(240, 234, 216, 0.35);
+  border-radius: 50%;
+  background: rgba(240, 234, 216, 0.045);
+  text-align: center;
+}
+
+.quest-dashboard__compass-value {
+  color: #f3bd62;
+  font-family: Georgia, serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 1;
+}
+
+.quest-dashboard__progress,
+.quest-world__meter {
+  overflow: hidden;
+  height: 0.35rem;
+  margin: 1.5rem 0 0.8rem;
+  background: rgba(240, 234, 216, 0.15);
+}
+
+.quest-dashboard__progress span,
+.quest-world__meter span {
+  display: block;
+  height: 100%;
+  background: var(--quest-gold);
+}
+
+.quest-dashboard__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.78rem;
+}
+
+.quest-dashboard__stats strong {
+  flex-basis: 100%;
+}
+
+.quest-dashboard__section {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 8rem) 1.25rem;
+}
+
+.quest-dashboard__section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(16, 40, 32, 0.25);
+  padding-bottom: 1.5rem;
+}
+
+.quest-dashboard__section-heading h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.quest-worlds {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 3rem;
+  margin-top: 2rem;
+}
+
+.quest-world {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(16, 40, 32, 0.2);
+  padding: 2.25rem 0;
+}
+
+.quest-world__number {
+  color: var(--quest-rust);
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
+}
+
+.quest-world__content > p {
+  margin: 0;
+  color: var(--quest-moss);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.quest-world h3 {
+  margin: 0.3rem 0 0.5rem;
+  font-size: 1.65rem;
+  font-weight: 500;
+}
+
+.quest-world__content > span {
+  color: #4f6259;
+  line-height: 1.55;
+}
+
+.quest-world__meter {
+  margin-top: 1.25rem;
+  background: rgba(16, 40, 32, 0.12);
+}
+
+.quest-world small {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.quest-world a {
+  color: var(--quest-rust);
+  font-weight: 800;
+}
+
+.quest-world__done,
+.quest-world__locked {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.quest-journal {
+  max-width: none;
+  background: var(--quest-paper-light);
+  padding-right: max(1.25rem, calc((100vw - 76rem) / 2));
+  padding-left: max(1.25rem, calc((100vw - 76rem) / 2));
+}
+
+.quest-journal__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.quest-journal__card {
+  border: 1px solid rgba(16, 40, 32, 0.2);
+  background: var(--quest-paper);
+  padding: 1.5rem;
+}
+
+.quest-journal__card--sprint {
+  background: var(--quest-moss);
+  color: white;
+}
+
+.quest-journal__card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.8rem;
+}
+
+.quest-journal__card button {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  padding: 0.6rem 0.8rem;
+  font-weight: 800;
+}
+
+.quest-journal__card ol {
+  padding-left: 1.25rem;
+}
+
+.quest-journal__card ol li {
+  margin-top: 0.6rem;
+}
+
+.quest-journal__card ol a {
+  color: white;
+}
+
+.quest-journal__card ol span {
+  margin-left: 0.5rem;
+  opacity: 0.75;
+  font-size: 0.75rem;
+}
+
+.quest-journal__tags,
+.quest-journal__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  list-style: none;
+}
+
+.quest-journal__tags li,
+.quest-journal__badges li {
+  border: 1px solid rgba(16, 40, 32, 0.3);
+  border-radius: 2rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+}
+
+.quest-journal > .quest-settings {
+  margin-top: 2rem;
+  border: 1px solid rgba(16, 40, 32, 0.2);
+  background: var(--quest-ink);
+  color: white;
+  padding: 1rem 1.25rem;
+}
+
+.quest-dashboard footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--quest-ink);
+  color: #c8d3ca;
+  padding: 1.5rem max(1.25rem, calc((100vw - 76rem) / 2));
+  font-size: 0.8rem;
+}
+
+.quest-dashboard a:focus-visible,
+.quest-dashboard button:focus-visible,
+.quest-dashboard summary:focus-visible,
+.quest-dashboard select:focus-visible,
+.quest-dashboard input:focus-visible {
+  outline: 3px solid #f3bd62;
+  outline-offset: 3px;
+}
+
+@media (max-width: 52rem) {
+  .quest-dashboard__hero-grid,
+  .quest-journal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quest-dashboard__compass {
+    width: min(24rem, 100%);
+  }
+
+  .quest-worlds {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 36rem) {
+  .quest-dashboard nav > a:not(.quest-dashboard__brand) {
+    display: none;
+  }
+
+  .quest-dashboard__hero-grid {
+    min-height: auto;
+    padding: 5rem 0;
+  }
+
+  .quest-dashboard h1 {
+    font-size: clamp(2.8rem, 15vw, 4.5rem);
+  }
+
+  .quest-dashboard__compass {
+    width: 100%;
+  }
+
+  .quest-dashboard__section-heading {
+    display: block;
+  }
+
+  .quest-world {
+    grid-template-columns: 2.5rem 1fr;
+  }
+
+  .quest-dashboard footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

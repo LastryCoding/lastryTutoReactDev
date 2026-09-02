@@ -27,19 +27,16 @@ Navigateur
 Le serveur de production sert uniquement des fichiers statiques. Il ne recoit
 ni progression, ni code, ni commande d'execution.
 
-## Frontieres prevues
+## Frontieres
 
 - `src/content/tutorial/` : chapitres, lecons et fichiers TutorialKit ;
-- `src/components/` : interface React Quest et remplacements TutorialKit ;
-- `src/domain/` : modeles purs de progression, XP et deblocage ;
+- `src/pages/index.astro` : dashboard statique et registre de contenu au build ;
+- `src/components/` : dashboard, actions de l'IDE et gestion des donnees ;
+- `src/domain/` : modeles purs de progression, XP, acquis et deblocage ;
 - `src/storage/` : validation, migrations, import et export ;
-- `src/validation/` : format de resultats et orchestration des commandes ;
-- `src/styles/` : tokens, themes, responsive et accessibilite ;
 - `scripts/` : validation statique de l'ensemble du contenu ;
-- `tests/` : tests unitaires, composants et parcours Playwright.
-
-Ces chemins restent provisoires jusqu'au spike, car les points d'extension reels
-de TutorialKit doivent etre confirmes avant de figer l'arborescence.
+- `src/**/*.test.ts(x)` : tests unitaires et de composants ;
+- `e2e/` : parcours Playwright sur Microsoft Edge.
 
 ## Flux d'un exercice
 
@@ -71,8 +68,17 @@ reinitialisation totale restent des actions locales explicites.
 
 Un registre genere et valide les metadonnees. Un script de CI verifie les
 identifiants, prerequis, fichiers, solutions, differences starter/solution et
-commandes. Les starters et solutions sont testes sur le meme template afin de
-garantir respectivement au moins un echec et un succes complet.
+commandes. Chaque exercice possede un test cache dedie dans un template qui etend
+le socle React partage. Les starters et solutions sont testes en groupe afin de
+garantir respectivement un echec comportemental et un succes complet.
+
+## Dashboard
+
+TutorialKit injecte uniquement les routes du tutoriel. La route `/` appartient a
+Astro et transforme les metadonnees des 52 lecons en un registre minimal transmis
+au composant React. Le dashboard ne charge ni le runtime TutorialKit ni
+WebContainers. XP, acquis, badges, prochaine mission, sprint et deblocage sont
+derives du registre et de l'etat local, sans duplication persistante.
 
 ## Deploiement
 
@@ -101,8 +107,9 @@ statique. Les noms reels du reseau et des snippets Caddy sont adaptes sur le VPS
   de sortie alimentent un resultat structure ;
 - le starter et la solution sont verifies hors navigateur avec le meme template.
 
-## Risques techniques a lever par le spike
+## Limites connues
 
-- surface exacte de remplacement des composants TutorialKit 1.6.0 ;
-- comportement Playwright de WebContainers sous headers d'isolation ;
-- limites de stockage et temps d'installation du template partage.
+- TutorialKit 1.6.0 reste lie a Astro 4 et a son ecosysteme Vite 5 ;
+- Playwright WebContainers est valide localement sur Edge mais pas dans la CI ;
+- le temps de premiere installation WebContainer depend du poste et du reseau ;
+- le stockage reste soumis au quota et aux suppressions de donnees du navigateur.

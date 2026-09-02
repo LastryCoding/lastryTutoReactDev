@@ -50,7 +50,7 @@ tableau de bord et les cours restent consultables sur petit ecran.
 - collaboration temps reel ;
 - execution distante de code ;
 - support complet de tous les navigateurs et appareils mobiles ;
-- enseignement des types TypeScript avances ou des composants de classe ;
+- composants de classe et sujets TypeScript de niveau expert ;
 - certification professionnelle officielle.
 
 ## Definition de la V1

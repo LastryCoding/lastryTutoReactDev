@@ -8,7 +8,7 @@ preuve de fonctionnement.
 
 ## Etat courant
 
-- Phase active : RQ-04 Dashboard et progression.
+- Phase active : RQ-16 Publication V1.
 - Depot GitHub : `https://github.com/LastryCoding/lastryTutoReactDev`.
 - Visibilite GitHub : publique, verifiee via l'API GitHub.
 - Depot local : vide au demarrage, sans commit, branche initiale `master`.
@@ -153,7 +153,50 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
 - `pnpm test` : 8 tests passes dans 2 fichiers ;
 - `pnpm build` : succes, 52 exercices valides et 53 pages generees.
 
+### 2026-09-02 - RQ-04 Dashboard et progression
+
+- la racine `/` sert un dashboard Astro dedie au lieu d'une redirection ;
+- aucune iframe ni initialisation WebContainer sur le dashboard ;
+- carte responsive des six mondes avec progression et etat explicite ;
+- prochaine mission et deblocage derives uniquement des prerequis termines ;
+- XP, badges et acquis restitues depuis le store local ;
+- mode sprint persiste et limite aux missions actuellement accessibles ;
+- export, import, reset, preferences et recuperation accessibles depuis l'accueil ;
+- 3 tests de domaine et 2 tests de composant couvrent la progression derivee ;
+- Playwright dashboard : desktop et mobile valides sur Microsoft Edge.
+
+### 2026-09-02 - RQ-05 et RQ-13 IDE et qualite transversale
+
+- actions Executer, Verifier, Formater, Sauvegarder, Reinitialiser, Indice,
+  Solution et Agrandir disponibles sur les 52 exercices ;
+- diagnostics pedagogiques separes pour TypeScript, ESLint et comportement ;
+- raccourcis clavier pour execution, verification, sauvegarde et formatage ;
+- compatibilite WebContainers controlee avec alternative lisible ;
+- dashboard responsive, focus visibles, labels, statuts textuels et `aria-live` ;
+- `pnpm test` : 13 tests passes dans 4 fichiers, dont 2 tests de composant ;
+- `pnpm test:e2e` : 3 tests passes en 2 minutes sur Microsoft Edge ;
+- parcours Edge : isolation, edition, preview, echec, restauration, formatage,
+  execution, succes, 50 XP, badge, acquis et prochaine mission verifies.
+
+### 2026-09-02 - RQ-14 Documentation finale
+
+- README aligne sur les six mondes effectivement livres ;
+- guide auteur, architecture, contribution, confidentialite et deploiement a jour ;
+- captures dashboard desktop et mobile generees avec Playwright et relues.
+
+### 2026-09-02 - Validation de la candidate V1
+
+- `pnpm format:check` : succes ;
+- `pnpm lint` : succes ;
+- `pnpm typecheck` : 0 erreur, 0 avertissement, 0 hint ;
+- `pnpm test` : 13 tests passes dans 4 fichiers ;
+- `pnpm build` : succes, 52 exercices valides et 53 pages generees ;
+- `pnpm test:e2e` : 3 tests passes sur Microsoft Edge ;
+- image Docker finale reconstruite depuis le depot : succes ;
+- conteneur final : utilisateur `101:101`, etat `healthy`, accueil HTTP 200,
+  dashboard present, endpoint de sante valide et route inconnue HTTP 404.
+
 ## Prochaine porte
 
-Construire RQ-04 : dashboard responsive, carte des mondes, acquis, badges, mode
-sprint et deblocage derive de la progression locale.
+Executer la validation finale complete, pousser `main`, puis verifier le workflow
+CI public avant de fermer RQ-16. Le deploiement VPS reste reserve a l'agent dedie.

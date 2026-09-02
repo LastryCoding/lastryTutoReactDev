@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import Dashboard from '@/components/Dashboard';
+import type { CurriculumLesson } from '@/domain/curriculum';
+
+const worldPaths = [
+  '/0-camp-base/1-premiers-pas',
+  '/1-village-composants/1-props-et-etat',
+  '/2-foret-hooks/1-hooks-et-composition',
+  '/3-citadelle-applications/1-flux-et-interfaces',
+  '/4-observatoire-typescript/1-types-avances',
+  '/5-portail-production/1-qualite-et-accessibilite',
+];
+
+const entries = await getCollection(
+  'tutorial',
+  ({ data }) => data.type === 'lesson',
+);
+
+const lessons: CurriculumLesson[] = entries
+  .map((entry) => {
+    if (entry.data.type !== 'lesson') {
+      throw new Error(`Entree inattendue dans le dashboard : ${entry.id}`);
+    }
+
+    const custom = entry.data.custom ?? {};
+    const world = Number(custom.world);
+    const worldPath = worldPaths[world];
+    const directory = entry.id.split('/').at(-2);
+    const slug = directory?.replace(/^\d+-/, '');
+    if (!worldPath || !slug) {
+      throw new Error(`Route de lecon invalide : ${entry.id}`);
+    }
+
+    return {
+      bonus: custom.bonus === true,
+      concepts: Array.isArray(custom.concepts)
+        ? custom.concepts.filter(
+            (concept: unknown): concept is string =>
+              typeof concept === 'string',
+          )
+        : [],
+      estimatedMinutes: Number(custom.estimatedMinutes),
+      id: String(custom.id),
+      order: Number(custom.order),
+      prerequisites: Array.isArray(custom.prerequisites)
+        ? custom.prerequisites.filter(
+            (id: unknown): id is string => typeof id === 'string',
+          )
+        : [],
+      route: `${worldPath}/${slug}`,
+      title: entry.data.title,
+      world,
+      xp: Number(custom.xp),
+    };
+  })
+  .sort((left, right) => left.world - right.world || left.order - right.order);
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Apprenez TypeScript et React avec 52 exercices interactifs en francais."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>React Quest | Apprendre React par la pratique</title>
+  </head>
+  <body>
+    <Dashboard client:load lessons={lessons} />
+  </body>
+</html>

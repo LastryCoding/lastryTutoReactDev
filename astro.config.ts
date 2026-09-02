@@ -7,6 +7,7 @@ export default defineConfig({
   },
   integrations: [
     tutorialkit({
+      defaultRoutes: 'tutorial-only',
       expressiveCodeThemes: ['github-light', 'github-dark'],
     }),
   ],
