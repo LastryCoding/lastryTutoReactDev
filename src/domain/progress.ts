@@ -38,6 +38,18 @@ export const exerciseProgressSchema = z.object({
   archivedFiles: z.array(archivedFilesSchema),
 });
 
+export const questSettingsSchema = z.object({
+  theme: z.enum(['system', 'light', 'dark']),
+  ideLayout: z.object({
+    lesson: z.number().min(15).max(60),
+    editor: z.number().min(20).max(70),
+    result: z.number().min(15).max(60),
+  }),
+  fontSize: z.number().int().min(12).max(24),
+  reducedMotion: z.enum(['system', 'reduce', 'allow']),
+  sprintMode: z.boolean(),
+});
+
 export const questStateSchema = z.object({
   schemaVersion: z.literal(SCHEMA_VERSION),
   contentVersion: z.string().min(1),
@@ -46,17 +58,7 @@ export const questStateSchema = z.object({
   badges: z.array(z.string()),
   completedExercises: z.array(z.string()),
   exerciseProgress: z.record(exerciseProgressSchema),
-  settings: z.object({
-    theme: z.enum(['system', 'light', 'dark']),
-    ideLayout: z.object({
-      lesson: z.number().min(15).max(60),
-      editor: z.number().min(20).max(70),
-      result: z.number().min(15).max(60),
-    }),
-    fontSize: z.number().int().min(12).max(24),
-    reducedMotion: z.enum(['system', 'reduce', 'allow']),
-    sprintMode: z.boolean(),
-  }),
+  settings: questSettingsSchema,
   timestamps: z.object({
     createdAt: z.string().datetime(),
     updatedAt: z.string().datetime(),
@@ -65,6 +67,7 @@ export const questStateSchema = z.object({
 
 export type ValidationResult = z.infer<typeof validationResultSchema>;
 export type ExerciseProgress = z.infer<typeof exerciseProgressSchema>;
+export type QuestSettings = z.infer<typeof questSettingsSchema>;
 export type QuestState = z.infer<typeof questStateSchema>;
 
 export function createInitialState(now = new Date().toISOString()): QuestState {
@@ -274,6 +277,17 @@ export function resetExerciseCode(
         },
       },
     },
+    now,
+  );
+}
+
+export function updateSettings(
+  state: QuestState,
+  settings: QuestSettings,
+  now = new Date().toISOString(),
+): QuestState {
+  return touch(
+    { ...state, settings: questSettingsSchema.parse(settings) },
     now,
   );
 }

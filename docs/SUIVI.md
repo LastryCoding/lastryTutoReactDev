@@ -8,7 +8,7 @@ preuve de fonctionnement.
 
 ## Etat courant
 
-- Phase active : RQ-03 Domaine et stockage local.
+- Phase active : RQ-04 Dashboard et progression.
 - Depot GitHub : `https://github.com/LastryCoding/lastryTutoReactDev`.
 - Visibilite GitHub : publique, verifiee via l'API GitHub.
 - Depot local : vide au demarrage, sans commit, branche initiale `master`.
@@ -137,7 +137,23 @@ Le template React execute dans WebContainers utilise Vite `6.4.3` et son
   HTTP 404 et endpoint `/healthz` egal a `healthy` ;
 - deploiement, exploitation et rollback documentes dans `docs/DEPLOYMENT.md`.
 
+### 2026-09-02 - RQ-03 Domaine et stockage local
+
+- schema Zod des preferences expose et mise a jour immutable validee ;
+- export JSON de la progression complete depuis chaque exercice ;
+- import depuis un fichier avec migration et validation avant toute ecriture ;
+- un import invalide conserve sans modification la progression courante ;
+- reinitialisation totale protegee par une confirmation explicite ;
+- un etat principal illisible est archive sous `reactquest:state:corrupted`
+  avant initialisation, reste telechargeable et peut etre supprime explicitement ;
+- preferences de theme, taille de texte, mouvement et sprint modifiables ;
+- gestion des donnees disponible meme lorsque WebContainers est incompatible ;
+- `pnpm lint` : succes ;
+- `pnpm typecheck` : 0 erreur, 0 avertissement, 0 hint ;
+- `pnpm test` : 8 tests passes dans 2 fichiers ;
+- `pnpm build` : succes, 52 exercices valides et 53 pages generees.
+
 ## Prochaine porte
 
-Completer RQ-03 avec import/export, reinitialisation totale, gestion utilisateur
-de l'etat corrompu et couverture des preferences, puis construire le dashboard.
+Construire RQ-04 : dashboard responsive, carte des mondes, acquis, badges, mode
+sprint et deblocage derive de la progression locale.

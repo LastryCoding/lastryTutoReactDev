@@ -61,6 +61,12 @@ domaine manipulent un etat immutable et serialisable. Une couche de stockage
 valide les entrees externes, applique les migrations et gere les erreurs sans
 faire tomber l'interface.
 
+La progression valide utilise `reactquest:state:v1`. Si cette valeur est
+illisible, son contenu brut est copie dans `reactquest:state:corrupted` avant de
+repartir d'un etat initial. Un import est parse, migre et valide en memoire avant
+toute ecriture. L'export, l'import, la suppression de l'archive illisible et la
+reinitialisation totale restent des actions locales explicites.
+
 ## Validation du contenu
 
 Un registre genere et valide les metadonnees. Un script de CI verifie les

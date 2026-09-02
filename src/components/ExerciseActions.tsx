@@ -13,8 +13,13 @@ import {
   type QuestState,
   type ValidationResult,
 } from '@/domain/progress';
-import { loadQuestState, saveQuestState } from '@/storage/progress-store';
+import {
+  getCorruptedQuestState,
+  loadQuestState,
+  saveQuestState,
+} from '@/storage/progress-store';
 import './ExerciseActions.css';
+import ProgressSettings from './ProgressSettings';
 
 interface ExerciseActionsProps {
   exerciseId: string;
@@ -50,6 +55,7 @@ export default function ExerciseActions({
   const [totalXp, setTotalXp] = useState(0);
   const [runtimeReady, setRuntimeReady] = useState(false);
   const [corruptedState, setCorruptedState] = useState(false);
+  const [questState, setQuestState] = useState<QuestState | null>(null);
   const baselineFiles = useRef<Record<string, string>>({});
 
   function persist(transform: (state: QuestState) => QuestState): QuestState {
@@ -58,6 +64,7 @@ export default function ExerciseActions({
     saveQuestState(localStorage, next);
     setProgress(next.exerciseProgress[exerciseId] ?? null);
     setTotalXp(next.xp);
+    setQuestState(next);
     return next;
   }
 
@@ -274,6 +281,7 @@ export default function ExerciseActions({
     setCorruptedState(loaded.corruptedRaw !== null);
     setProgress(opened.exerciseProgress[exerciseId] ?? null);
     setTotalXp(opened.xp);
+    setQuestState(opened);
 
     let saveTimer: ReturnType<typeof setTimeout> | undefined;
     let documentCleanups: Array<() => void> = [];
@@ -290,6 +298,7 @@ export default function ExerciseActions({
       saveQuestState(localStorage, next);
       setProgress(next.exerciseProgress[exerciseId] ?? null);
       setTotalXp(next.xp);
+      setQuestState(next);
     }
 
     tutorialStore.solve = () => {
@@ -390,6 +399,15 @@ export default function ExerciseActions({
     typeof SharedArrayBuffer !== 'undefined' &&
     'serviceWorker' in navigator;
 
+  function handleStateChange(state: QuestState): void {
+    const opened = openExercise(state, exerciseId, contentVersion);
+    saveQuestState(localStorage, opened);
+    setQuestState(opened);
+    setProgress(opened.exerciseProgress[exerciseId] ?? null);
+    setTotalXp(opened.xp);
+    setCorruptedState(getCorruptedQuestState(localStorage) !== null);
+  }
+
   if (!compatible) {
     return (
       <section className="quest-compatibility" role="status">
@@ -399,6 +417,12 @@ export default function ExerciseActions({
           depuis un ordinateur. Votre progression reste enregistree dans votre
           navigateur.
         </p>
+        {questState && (
+          <ProgressSettings
+            state={questState}
+            onStateChange={handleStateChange}
+          />
+        )}
       </section>
     );
   }
@@ -475,6 +499,13 @@ export default function ExerciseActions({
             <pre>{validation.technicalDetails}</pre>
           </details>
         </div>
+      )}
+
+      {questState && (
+        <ProgressSettings
+          state={questState}
+          onStateChange={handleStateChange}
+        />
       )}
     </section>
   );

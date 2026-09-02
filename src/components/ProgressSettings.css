@@ -1,0 +1,112 @@
+.quest-settings {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.24);
+  padding-top: 0.9rem;
+}
+
+.quest-settings > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.quest-settings__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.quest-settings__grid label:not(.quest-settings__check) {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+}
+
+.quest-settings select,
+.quest-settings input[type='range'] {
+  width: 100%;
+}
+
+.quest-settings select {
+  border: 1px solid #475569;
+  border-radius: 0.4rem;
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 0.45rem;
+}
+
+.quest-settings__check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quest-settings__actions,
+.quest-settings__recovery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.quest-settings__actions button,
+.quest-settings__import,
+.quest-settings__recovery button {
+  cursor: pointer;
+  border: 1px solid #475569;
+  border-radius: 0.45rem;
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+}
+
+.quest-settings__import {
+  display: inline-flex;
+  align-items: center;
+}
+
+.quest-settings__file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.quest-settings__import:focus-within {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+.quest-settings__actions .quest-settings__danger {
+  border-color: #f87171;
+  color: #fecaca;
+}
+
+.quest-settings__recovery {
+  border: 1px solid #f59e0b;
+  border-radius: 0.55rem;
+  background: rgba(120, 53, 15, 0.22);
+  padding: 0.85rem;
+}
+
+.quest-settings__recovery strong,
+.quest-settings__recovery p {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.quest-settings__message {
+  margin-bottom: 0;
+}
+
+@media (max-width: 40rem) {
+  .quest-settings__actions > *,
+  .quest-settings__recovery button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}

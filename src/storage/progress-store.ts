@@ -7,6 +7,7 @@ import {
 } from '@/domain/progress';
 
 export const STORAGE_KEY = 'reactquest:state:v1';
+export const CORRUPTED_STORAGE_KEY = 'reactquest:state:corrupted';
 
 export type LoadStateResult =
   | { state: QuestState; corruptedRaw: null }
@@ -29,6 +30,7 @@ export function loadQuestState(
   const imported = importQuestState(raw, now);
 
   if (!imported.success) {
+    storage.setItem(CORRUPTED_STORAGE_KEY, raw);
     return { state: createInitialState(now), corruptedRaw: raw };
   }
 
@@ -68,6 +70,39 @@ export function importQuestState(
       raw,
     };
   }
+}
+
+export function replaceQuestState(
+  storage: Storage,
+  raw: string,
+  now = new Date().toISOString(),
+): ImportStateResult {
+  const imported = importQuestState(raw, now);
+
+  if (imported.success) {
+    saveQuestState(storage, imported.state);
+    storage.removeItem(CORRUPTED_STORAGE_KEY);
+  }
+
+  return imported;
+}
+
+export function resetQuestState(
+  storage: Storage,
+  now = new Date().toISOString(),
+): QuestState {
+  const state = createInitialState(now);
+  saveQuestState(storage, state);
+  storage.removeItem(CORRUPTED_STORAGE_KEY);
+  return state;
+}
+
+export function getCorruptedQuestState(storage: Storage): string | null {
+  return storage.getItem(CORRUPTED_STORAGE_KEY);
+}
+
+export function discardCorruptedQuestState(storage: Storage): void {
+  storage.removeItem(CORRUPTED_STORAGE_KEY);
 }
 
 function migrateState(value: unknown, now: string): unknown {
